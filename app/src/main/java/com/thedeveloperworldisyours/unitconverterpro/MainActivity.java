@@ -16,9 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.foundation_icons_typeface_library.FoundationIcons;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -30,7 +32,15 @@ import com.thedeveloperworldisyours.unitconverterpro.fragment.CurrencyFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Drawer mResult =null;
+    private static final int BASIC_CATEGORY = 1;
+    private static final int CURRENCY_UNIT = 2;
+    private static final int AREA_UNIT = 3;
+    private static final int POWER_UNIT = 4;
+    private static final int WORK_UNIT = 5;
+    private static final int FUEL_UNIT = 6;
+    private static final int VOLUME_UNIT = 7;
+
+    private Drawer mResult = null;
     private FloatingActionButton mFab;
 
     @Override
@@ -40,6 +50,20 @@ public class MainActivity extends AppCompatActivity {
 
         mFab = (FloatingActionButton) findViewById(R.id.fab);
 
+
+        creteNavigationDrawer();
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+    }
+
+    public void creteNavigationDrawer() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,23 +78,26 @@ public class MainActivity extends AppCompatActivity {
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.activity_main_basic_category);
-//        item1.withTextColor(Color.WHITE);
-        SecondaryDrawerItem item2 = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(2).withName(R.string.fragment_currency_title).withIcon(GoogleMaterial.Icon.gmd_attach_money);
-        SecondaryDrawerItem item3 = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(3).withName(R.string.fragment_area_title).withIcon(GoogleMaterial.Icon.gmd_filter_list);
-        SecondaryDrawerItem item4 = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(4).withName(R.string.fragment_power_title).withIcon(FontAwesome.Icon.faw_bolt);
-        SecondaryDrawerItem item5 = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(5).withName(R.string.fragment_work_title).withIcon(FoundationIcons.Icon.fou_wheelchair);
+        PrimaryDrawerItem basicItem = new PrimaryDrawerItem().withIdentifier(BASIC_CATEGORY).withName(R.string.activity_main_basic_category);
+        SecondaryDrawerItem currencyItem = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(CURRENCY_UNIT).withName(R.string.fragment_currency_title).withIcon(GoogleMaterial.Icon.gmd_attach_money);
+        SecondaryDrawerItem areaItem = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(AREA_UNIT).withName(R.string.fragment_area_title).withIcon(GoogleMaterial.Icon.gmd_filter_list);
+        SecondaryDrawerItem powerItem = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(POWER_UNIT).withName(R.string.fragment_power_title).withIcon(FontAwesome.Icon.faw_bolt);
+        SecondaryDrawerItem workItem = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(WORK_UNIT).withName(R.string.fragment_work_title).withIcon(FoundationIcons.Icon.fou_wheelchair);
+        SecondaryDrawerItem fuelItem = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(FUEL_UNIT).withName(R.string.fragment_fuel_title).withIcon(CommunityMaterial.Icon.cmd_gas_station);
+        SecondaryDrawerItem voluemenItem = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(VOLUME_UNIT).withName(R.string.fragment_volume_title).withIcon(Ionicons.Icon.ion_ios_flask_outline);
 
         mResult = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        item1,
-                        item2,
-                        item3,
+                        basicItem,
+                        currencyItem,
+                        areaItem,
                         new DividerDrawerItem(),
-                        item4,
-                        item5
+                        powerItem,
+                        workItem,
+                        fuelItem,
+                        voluemenItem
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -78,64 +105,63 @@ public class MainActivity extends AppCompatActivity {
 
                         FragmentManager fragmentManager = getSupportFragmentManager();
 
+                        int backgroundColor = R.color.currency_color;
+                        int titleString = R.string.fragment_currency_title;
+
                         switch ((int) drawerItem.getIdentifier()) {
-                            case 1:
+                            case BASIC_CATEGORY:
                                 mResult.setSelection(2);
-                            case 2:
+                                break;
+
+                            case CURRENCY_UNIT:
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.content_main_container, CurrencyFragment.newInstance())
                                         .commit();
-                                toolbar.setTitle(R.string.fragment_currency_title);
-                                toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.currency_color));
-                                mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, R.color.currency_color)));
+                                backgroundColor = R.color.currency_color;
+                                titleString = R.string.fragment_currency_title;
                                 break;
-                            case 3:
+
+                            case AREA_UNIT:
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.content_main_container, AreaFragment.newInstance())
                                         .commit();
-                                toolbar.setTitle(R.string.fragment_area_title);
-                                toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.area_color));
-                                mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, R.color.area_color)));
+                                backgroundColor = R.color.area_color;
+                                titleString = R.string.fragment_area_title;
                                 break;
 
-                            case 4:
+                            case POWER_UNIT:
                                 Toast.makeText(MainActivity.this, R.string.fragment_power_title, Toast.LENGTH_SHORT).show();
-                                toolbar.setTitle(R.string.fragment_power_title);
-                                toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.power_color));
-                                mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, R.color.power_color)));
+                                backgroundColor = R.color.power_color;
+                                titleString = R.string.fragment_power_title;
                                 break;
-                            case 5:
+
+                            case WORK_UNIT:
                                 Toast.makeText(MainActivity.this, R.string.fragment_work_title, Toast.LENGTH_SHORT).show();
-                                toolbar.setTitle(R.string.fragment_work_title);
-                                toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.work_color));
-                                mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, R.color.work_color)));
+                                backgroundColor = R.color.work_color;
+                                titleString = R.string.fragment_work_title;
                                 break;
-                            case 6:
-                                Toast.makeText(MainActivity.this, R.string.app_name, Toast.LENGTH_SHORT).show();
-                                toolbar.setTitle(R.string.fragment_work_title);
-                                toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.work_color));
-                                mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, R.color.work_color)));
+
+                            case FUEL_UNIT:
+                                Toast.makeText(MainActivity.this, R.string.fragment_fuel_title, Toast.LENGTH_SHORT).show();
+                                backgroundColor = R.color.fuel_color;
+                                titleString = R.string.fragment_fuel_title;
                                 break;
-                            case R.id.nav_send:
+
+                            case VOLUME_UNIT:
+                                Toast.makeText(MainActivity.this, R.string.fragment_volume_title, Toast.LENGTH_SHORT).show();
+                                backgroundColor = R.color.volume_color;
+                                titleString = R.string.fragment_fuel_title;
                                 break;
                         }
+
+                        toolbar.setTitle(titleString);
+                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, backgroundColor));
+                        mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, backgroundColor)));
                         return false;
                     }
                 })
                 .build();
-        mResult.setSelection(1, false);
         mResult.setSelection(2);
-
-
-
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
     @Override
@@ -170,35 +196,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//        switch (item.getItemId()) {
-//            case R.id.nav_camera:
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.content_main_container, CurrencyFragment.newInstance())
-//                        .commit();
-//                break;
-//            case R.id.nav_gallery:
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.content_main_container, AreaFragment.newInstance())
-//                        .commit();
-//                break;
-//            case R.id.nav_slideshow:
-//                break;
-//            case R.id.nav_manage:
-//                break;
-//            case R.id.nav_share:
-//                break;
-//            case R.id.nav_send:
-//                break;
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 }

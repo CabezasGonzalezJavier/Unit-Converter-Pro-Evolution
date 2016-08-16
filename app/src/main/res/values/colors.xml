@@ -37,4 +37,8 @@
     <color name="area_color">#fbc933</color>
     <color name="power_color">#33b8fb</color>
     <color name="work_color">#fb3354</color>
+    <color name="fuel_color">#8005db</color>
+    <color name="volume_color">#db8005</color>
+    <color name="mass_color">#0473a9</color>
+    <color name="shoe_color">#04a98d</color>
 </resources>

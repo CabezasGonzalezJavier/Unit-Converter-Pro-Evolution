@@ -16,4 +16,6 @@
     <string name="fragment_area_title">Area</string>
     <string name="fragment_power_title">Power</string>
     <string name="fragment_work_title">Work</string>
+    <string name="fragment_fuel_title">Fuel</string>
+    <string name="fragment_volume_title">Volume</string>
 </resources>
