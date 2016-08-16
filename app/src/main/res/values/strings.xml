@@ -18,4 +18,15 @@
     <string name="fragment_work_title">Work</string>
     <string name="fragment_fuel_title">Fuel</string>
     <string name="fragment_volume_title">Volume</string>
+
+    <string name="currency_euro">EUR</string>
+    <string name="currency_pound">GBP</string>
+    <string name="currency_dollar">USD</string>
+    <string name="currency_yen">JPY</string>
+    <string name="currency_led">BGN</string>
+    <string name="currency_koruna">CZK</string>
+    <string name="currency_krone">DKK</string>
+    <string name="currency_forint">HUF</string>
+    <string name="currency_zloty">PLN</string>
+
 </resources>
