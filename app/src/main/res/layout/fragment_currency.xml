@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.thedeveloperworldisyours.unitconverterpro.fragment.CurrencyFragment">
 
+    <ProgressBar
+        android:id="@+id/fragment_currency_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/fragment_currency_pound_input_layout"
         android:layout_width="match_parent"
@@ -15,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_currency_line_edit_text"
-            android:hint="@string/currency_pound" />
+            android:hint="@string/currency_pound_hint" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -30,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_currency_line_edit_text"
-            android:hint="@string/currency_dollar" />
+            android:hint="@string/currency_dollar_hint" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -45,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_currency_line_edit_text"
-            android:hint="@string/currency_euro" />
+            android:hint="@string/currency_euro_hint" />
     </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>

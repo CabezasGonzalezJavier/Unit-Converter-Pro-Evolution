@@ -19,6 +19,8 @@
     <string name="fragment_fuel_title">Fuel</string>
     <string name="fragment_volume_title">Volume</string>
 
+
+
     <string name="currency_euro">EUR</string>
     <string name="currency_pound">GBP</string>
     <string name="currency_dollar">USD</string>
@@ -28,5 +30,19 @@
     <string name="currency_krone">DKK</string>
     <string name="currency_forint">HUF</string>
     <string name="currency_zloty">PLN</string>
+
+    <string name="currency_euro_hint">Euro</string>
+    <string name="currency_pound_hint">British pound</string>
+    <string name="currency_dollar_hint">US dollar</string>
+    <string name="currency_yen_hint">Japanese yen</string>
+    <string name="currency_led_hint">Bulgarian lev</string>
+    <string name="currency_koruna_hint">Czech koruna</string>
+    <string name="currency_krone_hint">Danish krone</string>
+    <string name="currency_forint_hint">Hungarian forint</string>
+    <string name="currency_zloty_hint">Polish zloty</string>
+
+    <string name="fragment_currency_successful">Successful</string>
+    <string name="fragment_currency_error">Error</string>
+    <string name="fragment_currency_general_error">Check your connection</string>
 
 </resources>
