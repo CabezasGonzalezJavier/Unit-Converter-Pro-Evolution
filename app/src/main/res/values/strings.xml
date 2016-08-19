@@ -41,7 +41,7 @@
     <string name="currency_forint_hint">Hungarian forint</string>
     <string name="currency_zloty_hint">Polish zloty</string>
 
-    <string name="fragment_currency_successful">Successful</string>
+    <string name="fragment_currency_update">Update</string>
     <string name="fragment_currency_error">Error</string>
     <string name="fragment_currency_general_error">Check your connection</string>
 

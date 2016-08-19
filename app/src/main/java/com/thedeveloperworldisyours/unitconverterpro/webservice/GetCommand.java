@@ -17,6 +17,6 @@ public class GetCommand implements Command{
 
     @Override
     public void execute() {
-        mRequest.performDeleteRequest(mUrl, mResponseHandler);
+        mRequest.performGetRequest(mUrl, mResponseHandler);
     }
 }

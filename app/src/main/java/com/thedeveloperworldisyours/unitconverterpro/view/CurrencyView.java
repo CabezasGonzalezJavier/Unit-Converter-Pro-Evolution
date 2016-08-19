@@ -1,10 +1,12 @@
 package com.thedeveloperworldisyours.unitconverterpro.view;
 
+import com.thedeveloperworldisyours.unitconverterpro.model.Currency;
+
 /**
  * Created by javierg on 17/08/16.
  */
 public interface CurrencyView {
-    public void successful();
+    public void successful(Currency currency);
     public void error();
     public void generalError();
     public void showProgressBar();

@@ -1,5 +1,7 @@
 package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
+import android.util.Log;
+
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientHTTP;
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientHTTPFactory;
 
@@ -11,6 +13,7 @@ public class RequestImpl implements Request {
 
     @Override
     public void performGetRequest(String url, ResponseHandler responseHandler) {
+
         ResponseListener responseListener = ResponseFactory.createResponse(responseHandler);
         ClientHTTP clientHTTP = ClientHTTPFactory.createClientHttp(responseListener);
         clientHTTP.get(url);

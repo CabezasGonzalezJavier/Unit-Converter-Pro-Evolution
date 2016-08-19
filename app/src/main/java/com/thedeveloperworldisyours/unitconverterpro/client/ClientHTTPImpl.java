@@ -1,11 +1,15 @@
 package com.thedeveloperworldisyours.unitconverterpro.client;
 
+import android.util.Log;
+
 import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseListener;
 
 /**
  * Created by javierg on 17/08/16.
  */
 public class ClientHTTPImpl implements ClientHTTP{
+
+
 
     ResponseListener mResponseListener;
 
@@ -17,6 +21,8 @@ public class ClientHTTPImpl implements ClientHTTP{
 
     @Override
     public void get(String url) {
+
+
         mClientAsyncTask = new ClientAsyncTaskImpl();
         mClientAsyncTask.executeAsync(mResponseListener, url, "GET");
     }

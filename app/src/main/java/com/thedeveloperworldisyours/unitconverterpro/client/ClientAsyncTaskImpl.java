@@ -1,9 +1,9 @@
 package com.thedeveloperworldisyours.unitconverterpro.client;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.thedeveloperworldisyours.unitconverterpro.model.Response;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.HttpURLConnectionFactory;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseListener;
 
 import java.io.BufferedReader;
@@ -23,6 +23,7 @@ public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> imple
     public void executeAsync(ResponseListener listener, String url, String type) {
 
         mResponseListener = listener;
+        this.execute(url, type);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> imple
     }
 
     public Response callClient(final String url, final String type) {
+
         Response responseModel = new Response();
         String responseJson;
 
@@ -55,7 +57,6 @@ public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> imple
                 response.append(inputLine);
             }
             responseJson = response.toString();
-
 
 //            Log.v("Asyntask", String.valueOf(con.getResponseCode()));
 
@@ -80,6 +81,7 @@ public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> imple
 
     @Override
     protected void onPostExecute(Response response) {
+
         if (response.isInternetError()) {
             mResponseListener.onGeneralError();
         } else {

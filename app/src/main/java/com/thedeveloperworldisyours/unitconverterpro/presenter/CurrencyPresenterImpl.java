@@ -28,7 +28,7 @@ public class CurrencyPresenterImpl implements CurrencyPresenter, CurrencyRespons
     @Override
     public void successful(Currency currency) {
         mCurrencyView.hideProgressBar();
-        mCurrencyView.successful();
+        mCurrencyView.successful(currency);
     }
 
     @Override

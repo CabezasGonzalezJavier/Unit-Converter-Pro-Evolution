@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro.webservice;
+package com.thedeveloperworldisyours.unitconverterpro.client;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
