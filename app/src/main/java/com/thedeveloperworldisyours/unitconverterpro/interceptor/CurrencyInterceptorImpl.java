@@ -12,7 +12,7 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
 /**
  * Created by javierg on 17/08/16.
  */
-public class CurrencyInterceptorImpl implements CurrencyInterceptor {
+    public class CurrencyInterceptorImpl implements CurrencyInterceptor {
 
     private static final String TAG = "ClientAsyncTaskImpl";
     private CommandFactory mCommandFactory = new CommandFactory();
