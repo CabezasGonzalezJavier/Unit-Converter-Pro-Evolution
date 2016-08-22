@@ -64,7 +64,7 @@ public class ClientHTTPTest {
     }
 
     @Test
-    public void setClientHttpWithOnPostExcuteException(){
+    public void setClientHttpWithOnPostExecuteException(){
         mockConnection = mock(HttpURLConnection.class);
 
         try {

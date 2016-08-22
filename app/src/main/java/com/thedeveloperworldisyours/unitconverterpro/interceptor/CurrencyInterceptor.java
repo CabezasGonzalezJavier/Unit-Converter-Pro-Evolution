@@ -6,5 +6,5 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.CurrencyResponse
  * Created by javierg on 17/08/16.
  */
 public interface CurrencyInterceptor {
-    public void     getCurrency(CurrencyResponseHandler mCurrencyResponseHandler);
+    public void getCurrency(CurrencyResponseHandler mCurrencyResponseHandler);
 }

@@ -19,16 +19,11 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
 
     @Override
     public void getCurrency(final CurrencyResponseHandler mCurrencyResponseHandler) {
-        ResponseHandler responseHandler = new ResponseHandler() {
+            ResponseHandler responseHandler = new ResponseHandler() {
             @Override
             public void sendResponseSuccessful(String response) {
-                Gson gson = new Gson();
-                response = response.replace("?","");
-                response = response.replace("(","");
-                response = response.replace(")","");
-                Log.d(TAG, response.toString());
-                Currency currency = gson.fromJson(response, Currency.class);
-                mCurrencyResponseHandler.successful(currency);
+
+                mCurrencyResponseHandler.successful(changesResponseToCurrency(response));
 
             }
 
@@ -43,5 +38,14 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
             }
         };
         mCommandFactory.createGetCommand(Constant.URL, responseHandler).execute();
+    }
+
+    public Currency changesResponseToCurrency(String response){
+        Gson gson = new Gson();
+        response = response.replace("?","");
+        response = response.replace("(","");
+        response = response.replace(")","");
+        Log.d(TAG, response.toString());
+        return gson.fromJson(response, Currency.class);
     }
 }

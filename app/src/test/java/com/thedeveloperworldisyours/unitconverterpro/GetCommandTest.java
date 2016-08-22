@@ -1,14 +1,9 @@
 package com.thedeveloperworldisyours.unitconverterpro;
 
-import com.thedeveloperworldisyours.unitconverterpro.interceptor.CurrencyInterceptor;
-import com.thedeveloperworldisyours.unitconverterpro.interceptor.CurrencyInterceptorImpl;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.CommandFactory;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.GetCommand;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.Request;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.RequestFactory;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.RequestImpl;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseImpl;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +31,7 @@ public class GetCommandTest {
 
 
     @Test
-    public void testgetCommandPerfomrsRequest(){
+    public void testGetCommandPerformRequest(){
 
         GetCommand getCommand = new GetCommand(mURL, mRequest, mMockResponseHandler);
         getCommand.execute();
