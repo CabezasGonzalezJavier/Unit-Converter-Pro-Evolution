@@ -15,7 +15,7 @@ import java.net.URL;
 /**
  * Created by javierg on 17/08/16.
  */
-public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> implements ClientAsyncTask{
+public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> implements ClientAsyncTask {
 
     private ResponseListener mResponseListener;
 
@@ -73,7 +73,9 @@ public class ClientAsyncTaskImpl extends AsyncTask<String, Void, Response> imple
             responseJson = e.toString();
             responseModel.setInternetError(true);
 
-            mResponseListener.onError(e.toString());
+            if (mResponseListener != null) {
+                mResponseListener.onError(e.toString());
+            }
         }
 
         return responseModel;
