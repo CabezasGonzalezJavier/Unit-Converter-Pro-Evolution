@@ -18,7 +18,6 @@ import static org.mockito.Mockito.verify;
  */
 public class ResponseTest {
 
-    private String mURL;
     private String mResponse;
     private String mResponseError;
     private String mResponseGeneralError;
@@ -28,7 +27,6 @@ public class ResponseTest {
     @Before
     public void setUp() {
         mResponse = "response";
-        mURL = "SomeURL";
         mResponseGeneralError = "GeneralError";
         mResponseError = "Error";
         mMockResponseHandler = mock(ResponseHandler.class);

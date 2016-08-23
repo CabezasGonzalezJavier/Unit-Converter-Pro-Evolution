@@ -1,5 +1,6 @@
 package com.thedeveloperworldisyours.unitconverterpro;
 
+import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTask;
 import com.thedeveloperworldisyours.unitconverterpro.interceptor.CurrencyInterceptorImpl;
 import com.thedeveloperworldisyours.unitconverterpro.model.Rates;
 
@@ -16,12 +17,16 @@ import static org.mockito.Mockito.mock;
  */
 public class CurrencyInterceptorTest {
 
+    private ClientAsyncTask mClientAsyncTask;
     private String mResponseString;
     private CurrencyInterceptorImpl mCurrencyInterceptor;
     private Rates mRates;
 
     @Before
     public void setUp(){
+
+        mClientAsyncTask = mock(ClientAsyncTask.class);
+
         mRates = new Rates();
 
         mRates.setAUD(1.2);
@@ -54,8 +59,6 @@ public class CurrencyInterceptorTest {
 
     @Test
     public void testCurrency(){
-
-
 
         assertEquals(mRates.getAUD(), 1.2);
         assertEquals(mRates.getBGN(), 3.1);

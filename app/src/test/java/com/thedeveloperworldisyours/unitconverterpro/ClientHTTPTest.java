@@ -28,7 +28,7 @@ public class ClientHTTPTest {
 
     private HttpURLConnection mockConnection;
     private String mURL, mType;
-    ClientAsyncTask mClientAsyncTask;
+    private ClientAsyncTask mClientAsyncTask;
 
     @Before
     public void setUp() {
