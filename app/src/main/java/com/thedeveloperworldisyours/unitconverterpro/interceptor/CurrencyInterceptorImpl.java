@@ -14,7 +14,7 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
  */
     public class CurrencyInterceptorImpl implements CurrencyInterceptor {
 
-    private static final String TAG = "ClientAsyncTaskImpl";
+    private static final String TAG = "CurrencyInterceptorImpl";
     private CommandFactory mCommandFactory = new CommandFactory();
 
     @Override

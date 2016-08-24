@@ -17,6 +17,7 @@ public class Rates {
     @SerializedName("BRL")
     @Expose
     private Double bRL;
+
     @SerializedName("CAD")
     @Expose
     private Double cAD;
@@ -26,6 +27,7 @@ public class Rates {
     @SerializedName("CNY")
     @Expose
     private Double cNY;
+
     @SerializedName("CZK")
     @Expose
     private Double cZK;
@@ -35,6 +37,7 @@ public class Rates {
     @SerializedName("GBP")
     @Expose
     private Double gBP;
+
     @SerializedName("HKD")
     @Expose
     private Double hKD;
@@ -44,6 +47,7 @@ public class Rates {
     @SerializedName("HUF")
     @Expose
     private Double hUF;
+
     @SerializedName("IDR")
     @Expose
     private Double iDR;
@@ -53,6 +57,7 @@ public class Rates {
     @SerializedName("INR")
     @Expose
     private Double iNR;
+
     @SerializedName("JPY")
     @Expose
     private Double jPY;
@@ -62,6 +67,7 @@ public class Rates {
     @SerializedName("MXN")
     @Expose
     private Double mXN;
+
     @SerializedName("MYR")
     @Expose
     private Double mYR;
@@ -71,6 +77,7 @@ public class Rates {
     @SerializedName("NZD")
     @Expose
     private Double nZD;
+
     @SerializedName("PHP")
     @Expose
     private Double pHP;
@@ -80,6 +87,7 @@ public class Rates {
     @SerializedName("RON")
     @Expose
     private Double rON;
+
     @SerializedName("RUB")
     @Expose
     private Double rUB;
@@ -89,6 +97,7 @@ public class Rates {
     @SerializedName("SGD")
     @Expose
     private Double sGD;
+
     @SerializedName("THB")
     @Expose
     private Double tHB;
@@ -98,6 +107,7 @@ public class Rates {
     @SerializedName("USD")
     @Expose
     private Double uSD;
+
     @SerializedName("ZAR")
     @Expose
     private Double zAR;
