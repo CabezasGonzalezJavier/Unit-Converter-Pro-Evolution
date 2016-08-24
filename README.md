@@ -2,7 +2,7 @@
 Unit Converter Pro Evolution is  app which converts a lot of units
 
 # About
-  MaterialDrawer, Butterknife, Mockito and Espresso (Android UI tests).
+  Android Iconics, MaterialDrawer, Butterknife, Mockito and Espresso (Android UI tests).
   
   Also visit my blog: **[The developer world is yours](http://thedeveloperworldisyours.com/)**
   Libraries
@@ -12,6 +12,7 @@ Unit Converter Pro Evolution is  app which converts a lot of units
  * **[Mockito](http://mockito.org/)**
  * **[Butter Knife](https://github.com/JakeWharton/butterknife)**
  * **[MaterialDrawer](https://github.com/mikepenz/MaterialDrawer)**
+ * **[Android Iconics](https://github.com/mikepenz/Android-Iconics)**
 
 # Requirements
 
