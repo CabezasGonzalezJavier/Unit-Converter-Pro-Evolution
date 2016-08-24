@@ -8,11 +8,12 @@ Unit Converter Pro Evolution is  app which converts a lot of units
   Libraries
 ---------
 
+ * **[Android Iconics](https://github.com/mikepenz/Android-Iconics)**
+ * **[MaterialDrawer](https://github.com/mikepenz/MaterialDrawer)**
+ * **[Butter Knife](https://github.com/JakeWharton/butterknife)**
  * **[Espresso](https://google.github.io/android-testing-support-library/docs/espresso/index.html)**
  * **[Mockito](http://mockito.org/)**
- * **[Butter Knife](https://github.com/JakeWharton/butterknife)**
- * **[MaterialDrawer](https://github.com/mikepenz/MaterialDrawer)**
- * **[Android Iconics](https://github.com/mikepenz/Android-Iconics)**
+ 
 
 # Requirements
 
