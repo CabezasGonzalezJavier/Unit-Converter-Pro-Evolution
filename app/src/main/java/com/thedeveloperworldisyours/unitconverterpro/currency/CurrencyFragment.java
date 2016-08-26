@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro.fragment;
+package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -16,12 +16,8 @@ import android.widget.ProgressBar;
 
 import com.thedeveloperworldisyours.unitconverterpro.R;
 import com.thedeveloperworldisyours.unitconverterpro.model.Currency;
-import com.thedeveloperworldisyours.unitconverterpro.model.Rates;
-import com.thedeveloperworldisyours.unitconverterpro.presenter.CurrencyPresenter;
-import com.thedeveloperworldisyours.unitconverterpro.presenter.CurrencyPresenterImpl;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.Rate;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.RateDataSource;
-import com.thedeveloperworldisyours.unitconverterpro.view.CurrencyView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +33,8 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     public static final String TAG = "CurrencyFragment";
     public static final int POUNDS = 8;
+    public static final int DOLLAR_US = 29;
+    public static final int YEN = 15;
 
     @BindView(R.id.fragment_currency_progressbar)
     ProgressBar mProgressBar;
@@ -50,6 +48,9 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     @BindView(R.id.fragment_currency_pound_input_layout)
     TextInputLayout mPoundInputLayout;
 
+    @BindView(R.id.fragment_currency_yen_input_layout)
+    TextInputLayout mYenInputLayout;
+
     @BindView(R.id.fragment_currency_pound_edit_text)
     EditText mPoundEditText;
 
@@ -58,6 +59,9 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @BindView(R.id.fragment_currency_euro_edit_text)
     EditText mEuroEditText;
+
+    @BindView(R.id.fragment_currency_yen_edit_text)
+    EditText mYenEditText;
 
     private View mView;
 
@@ -95,6 +99,7 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         mPoundEditText.addTextChangedListener(this);
         mDollarEditText.addTextChangedListener(this);
         mEuroEditText.addTextChangedListener(this);
+        mYenEditText.addTextChangedListener(this);
 
         mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.currency_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         mCurrencyPresenter = new CurrencyPresenterImpl(this, mDataSource);
@@ -182,25 +187,54 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @Override
     public void afterTextChanged(Editable s) {
-        if ( !mEuroEditText.getText().toString().isEmpty() && mEuroEditText.getText().hashCode() == s.hashCode()) {
+        double currentValue;
+        double userValue;
+        double coinReference;
+        double euroValue;
 
-            double currentValue = mListRate.get(POUNDS).getValue();
-            double userValue = Double.valueOf(mEuroEditText.getText().toString());
-            double coinReference = 1.0;
+        if (!mEuroEditText.getText().toString().isEmpty() && mEuroEditText.getText().hashCode() == s.hashCode()) {
 
-            mPoundEditText.removeTextChangedListener(this);
-            mPoundEditText.setText(calculate(currentValue, userValue, coinReference));
-            mPoundEditText.addTextChangedListener(this);
+            userValue = Double.valueOf(mEuroEditText.getText().toString());
+            coinReference = 1.0;
 
-        } else if ( !mPoundEditText.getText().toString().isEmpty() && mPoundEditText.getText().hashCode() == s.hashCode()) {
 
-            double currentValue = 1.0;
-            double userValue = Double.valueOf(mPoundEditText.getText().toString());
-            double coinReference = mListRate.get(POUNDS).getValue();
+            setPounds(userValue, coinReference);
 
-            mEuroEditText.removeTextChangedListener(this);
-            mEuroEditText.setText(calculate(currentValue, userValue, coinReference));
-            mEuroEditText.addTextChangedListener(this);
+            setDollarUS(userValue, coinReference);
+
+            setYen(userValue, coinReference);
+
+
+        } else if (!mPoundEditText.getText().toString().isEmpty() && mPoundEditText.getText().hashCode() == s.hashCode()) {
+
+            currentValue = 1.0;
+            userValue = Double.valueOf(mPoundEditText.getText().toString());
+            coinReference = mListRate.get(POUNDS).getValue();
+
+            setEuro(currentValue, userValue, coinReference);
+
+            euroValue = calculateDouble(currentValue, userValue, coinReference);
+
+            userValue = euroValue;
+            coinReference = 1.0;
+
+            setDollarUS(userValue, coinReference);
+
+            setYen(userValue, coinReference);
+
+        } else if (!mDollarEditText.getText().toString().isEmpty() && mDollarEditText.getText().hashCode() == s.hashCode()) {
+            currentValue = 1.0;
+            userValue = Double.valueOf(mDollarEditText.getText().toString());
+            coinReference = mListRate.get(DOLLAR_US).getValue();
+
+            euroValue = calculateDouble(currentValue, userValue, coinReference);
+
+            setEuro(currentValue, userValue, coinReference);
+
+            userValue = euroValue;
+            coinReference = 1.0;
+
+            setPounds(userValue, coinReference);
         }
     }
 
@@ -209,8 +243,35 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         Log.d(TAG, String.valueOf(mListRate.size()));
     }
 
+    public void setPounds(double userValue, double coinReference) {
+        mPoundEditText.removeTextChangedListener(this);
+        mPoundEditText.setText(calculate(mListRate.get(POUNDS).getValue(), userValue, coinReference));
+        mPoundEditText.addTextChangedListener(this);
+    }
+
+    public void setEuro(double currentValue, double userValue, double coinReference) {
+        mEuroEditText.removeTextChangedListener(this);
+        mEuroEditText.setText(calculate(currentValue, userValue, coinReference));
+        mEuroEditText.addTextChangedListener(this);
+    }
+
+    public void setDollarUS(double userValue, double coinReference) {
+        mDollarEditText.removeTextChangedListener(this);
+        mDollarEditText.setText(calculate(mListRate.get(DOLLAR_US).getValue(), userValue, coinReference));
+        mDollarEditText.addTextChangedListener(this);
+    }
+
+    public void setYen(double userValue, double coinReference) {
+        mYenEditText.removeTextChangedListener(this);
+        mYenEditText.setText(calculate(mListRate.get(YEN).getValue(), userValue, coinReference));
+        mYenEditText.addTextChangedListener(this);
+    }
+
     public String calculate(double currentValue, double userValue, double coinReference) {
         return String.valueOf((currentValue * userValue) / coinReference);
     }
 
+    public double calculateDouble(double currentValue, double userValue, double coinReference) {
+        return (currentValue * userValue) / coinReference;
+    }
 }

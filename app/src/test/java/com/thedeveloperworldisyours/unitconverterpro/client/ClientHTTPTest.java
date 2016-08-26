@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro;
+package com.thedeveloperworldisyours.unitconverterpro.client;
 
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTask;
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTaskImpl;

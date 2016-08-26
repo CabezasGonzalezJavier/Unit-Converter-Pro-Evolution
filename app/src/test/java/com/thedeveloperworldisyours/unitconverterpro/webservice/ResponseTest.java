@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro;
+package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
 import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseImpl;

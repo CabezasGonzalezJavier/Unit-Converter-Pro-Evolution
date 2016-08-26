@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.thedeveloperworldisyours.unitconverterpro.fragment.CurrencyFragment">
+    tools:context=".currency.CurrencyFragment">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/fragment_currency_pound_input_layout"
@@ -51,6 +51,24 @@
             android:layout_height="wrap_content"
             android:background="@drawable/custom_currency_line_edit_text"
             android:hint="@string/currency_euro_hint"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fragment_currency_yen_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_currency_euro_input_layout"
+        android:theme="@style/CurrencyTextInPutLayout"
+        android:visibility="visible">
+
+        <com.thedeveloperworldisyours.unitconverterpro.common.view.EditText_Lota_Regular
+            android:id="@+id/fragment_currency_yen_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_currency_line_edit_text"
+            android:hint="@string/currency_yen_hint"
             android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 

@@ -1,12 +1,10 @@
-package com.thedeveloperworldisyours.unitconverterpro.presenter;
+package com.thedeveloperworldisyours.unitconverterpro.currency;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.thedeveloperworldisyours.unitconverterpro.interceptor.CurrencyInterceptor;
-import com.thedeveloperworldisyours.unitconverterpro.interceptor.CurrencyInterceptorImpl;
 import com.thedeveloperworldisyours.unitconverterpro.model.Currency;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.RateDataSource;
-import com.thedeveloperworldisyours.unitconverterpro.view.CurrencyView;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.CurrencyResponseHandler;
 
 /**
@@ -15,13 +13,17 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.CurrencyResponse
 public class CurrencyPresenterImpl implements CurrencyPresenter, CurrencyResponseHandler {
 
     private static final String TAG = "CurrencyPresenterImpl";
+    @NonNull
     private CurrencyInterceptor mCurrencyInterceptor;
+    @NonNull
     private CurrencyView mCurrencyView;
+    @NonNull
     private RateDataSource mRateDataSource;
 
 
-    public CurrencyPresenterImpl(CurrencyView mCurrencyView, RateDataSource rateDataSource) {
-        this.mCurrencyView = mCurrencyView;
+    public CurrencyPresenterImpl(@NonNull CurrencyView currencyView,
+                                 @NonNull RateDataSource rateDataSource) {
+        this.mCurrencyView = currencyView;
         this.mRateDataSource = rateDataSource;
     }
 
@@ -52,6 +54,8 @@ public class CurrencyPresenterImpl implements CurrencyPresenter, CurrencyRespons
     }
 
     public void insertRateDataBase(Currency currency) {
+
+        mRateDataSource.deleteAll();
 
         mRateDataSource.createRate("AUD", currency.getRates().getAUD());//0
         mRateDataSource.createRate("BGN", currency.getRates().getBGN());//1
@@ -94,7 +98,7 @@ public class CurrencyPresenterImpl implements CurrencyPresenter, CurrencyRespons
         mRateDataSource.createRate("USD", currency.getRates().getUSD());//29
 
         mRateDataSource.createRate("ZAR", currency.getRates().getZAR());//30
-        Log.d(TAG, "INSERT IN DATABASE");
+        Log.d(TAG, "INSERTED IN DATABASE");
         mCurrencyView.hideProgressBar();
         mCurrencyView.successful(currency);
     }

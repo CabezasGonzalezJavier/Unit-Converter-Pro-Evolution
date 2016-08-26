@@ -55,8 +55,32 @@ dependencies {
     androidTestCompile "com.android.support.test:runner:${ESPRESSO_RUNNER_VERSION}"
     androidTestCompile "com.android.support.test:rules:${ESPRESSO_RUNNER_VERSION}"
     androidTestCompile "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+
+    // Dependencies for local unit tests
+//    testCompile "junit:junit:$rootProject.ext.junitVersion"
+//    testCompile 'org.mockito:mockito-all:1.10.19'
+//    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+//    testCompile 'org.powermock:powermock-module-junit4:1.10.19'
+//    testCompile 'org.powermock:powermock-api-mockito:1.10.19'
+
+    // Android Testing Support Library's runner and rules
+//    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+//    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
 }
 
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:${APP_COMPAT_VERSION}"
+}
+
+/*
+All direct/transitive dependencies shared between your test and production APKs need to be
+excluded from the test APK! This is necessary because both APKs will contain the same classes. Not
+excluding these dependencies from your test configuration will result in an dex pre-verifier error
+at runtime. More info in this tools bug: (https://code.google.com/p/android/issues/detail?id=192497)
+*/
+configurations.compile.dependencies.each { compileDependency ->
+    println "Excluding compile dependency: ${compileDependency.getName()}"
+    configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
+        configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
+    }
 }

@@ -1,7 +1,7 @@
-package com.thedeveloperworldisyours.unitconverterpro;
+package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTask;
-import com.thedeveloperworldisyours.unitconverterpro.interceptor.CurrencyInterceptorImpl;
+import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyInterceptorImpl;
 import com.thedeveloperworldisyours.unitconverterpro.model.Rates;
 
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro.view;
+package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 import com.thedeveloperworldisyours.unitconverterpro.model.Currency;
 

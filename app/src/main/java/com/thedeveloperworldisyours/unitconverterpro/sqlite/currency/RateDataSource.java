@@ -48,9 +48,13 @@ public class RateDataSource {
         return newComment;
     }
 
-    public void deleteRate(Rate comment) {
-        long id = comment.getId();
-        System.out.println("Rate deleted with id: " + id);
+    public void deleteAll() {
+
+            mDatabase.delete(MySQLiteHelper.TABLE_RATE, null, null);
+    }
+
+    public void deleteRate(Rate rate) {
+        long id = rate.getId();
         mDatabase.delete(MySQLiteHelper.TABLE_RATE, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }

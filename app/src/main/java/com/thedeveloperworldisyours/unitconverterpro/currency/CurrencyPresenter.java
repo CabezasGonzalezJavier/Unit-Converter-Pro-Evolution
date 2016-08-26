@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro.presenter;
+package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 /**
  * Created by javierg on 17/08/16.

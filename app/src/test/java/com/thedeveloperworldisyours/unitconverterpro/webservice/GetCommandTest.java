@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro;
+package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
 import com.thedeveloperworldisyours.unitconverterpro.webservice.GetCommand;
 import com.thedeveloperworldisyours.unitconverterpro.webservice.Request;

@@ -27,8 +27,8 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyFragment;
 import com.thedeveloperworldisyours.unitconverterpro.fragment.AreaFragment;
-import com.thedeveloperworldisyours.unitconverterpro.fragment.CurrencyFragment;
 
 public class MainActivity extends AppCompatActivity {
 

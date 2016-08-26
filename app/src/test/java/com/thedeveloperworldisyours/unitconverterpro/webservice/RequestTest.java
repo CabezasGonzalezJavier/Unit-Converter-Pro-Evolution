@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro;
+package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientHTTP;
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientHTTPFactory;
