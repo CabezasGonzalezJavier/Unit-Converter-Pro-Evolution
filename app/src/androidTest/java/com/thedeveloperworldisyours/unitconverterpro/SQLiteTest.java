@@ -1,5 +1,7 @@
 package com.thedeveloperworldisyours.unitconverterpro;
 
+import android.support.test.InstrumentationRegistry;
+
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.Rate;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.RateDataSource;
 
@@ -11,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,14 +29,21 @@ public class SQLiteTest {
     @Before
     public void setUp() {
 
-        mRateDataSource = mock(RateDataSource.class);
+        mRateDataSource = new RateDataSource(InstrumentationRegistry.getTargetContext());
         mRateDataSource.open();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void cleanUp() {
+        mRateDataSource.deleteAll();
         mRateDataSource.close();
     }
+
+    @Test
+    public void testPreConditions() {
+        assertNotNull(mRateDataSource);
+    }
+
 
     @Test
     public void shouldAddExpenseType() throws Exception {
@@ -41,7 +51,7 @@ public class SQLiteTest {
 
         List<Rate> rate = mRateDataSource.getAllRates();
         assertThat(rate.size(), is(1));
-        assertTrue(rate.get(0).toString().equals("AD"));
+        assertTrue(rate.get(0).toString().equals("AUD"));
     }
 
 }
