@@ -28,9 +28,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyFragment;
+import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyInteractionListener;
 import com.thedeveloperworldisyours.unitconverterpro.fragment.AreaFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CurrencyInteractionListener{
 
     private static final int BASIC_CATEGORY = 1;
     private static final int CURRENCY_UNIT = 2;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Drawer mResult = null;
     private FloatingActionButton mFab;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void creteNavigationDrawer() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         new DrawerBuilder()
                 .withActivity(this)
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         mResult = new DrawerBuilder()
                 .withActivity(this)
-                .withToolbar(toolbar)
+                .withToolbar(mToolbar)
                 .addDrawerItems(
                         basicItem,
                         currencyItem,
@@ -154,14 +156,16 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
 
-                        toolbar.setTitle(titleString);
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, backgroundColor));
+                        mToolbar.setTitle(titleString);
+                        mToolbar.setSubtitle("");
+                        mToolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, backgroundColor));
                         mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, backgroundColor)));
                         return false;
                     }
                 })
                 .build();
         mResult.setSelection(2);
+
     }
 
     @Override
@@ -196,4 +200,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(String string) {
+        mToolbar.setSubtitle(string);
+    }
 }

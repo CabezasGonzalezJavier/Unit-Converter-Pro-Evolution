@@ -1,5 +1,6 @@
 package com.thedeveloperworldisyours.unitconverterpro.currency;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -31,10 +33,10 @@ import butterknife.ButterKnife;
  */
 public class CurrencyFragment extends Fragment implements CurrencyView, TextWatcher {
 
-    public static final String TAG = "CurrencyFragment";
-    public static final int POUNDS = 8;
-    public static final int DOLLAR_US = 29;
-    public static final int YEN = 15;
+    private static final String TAG = "CurrencyFragment";
+    private static final int POUNDS = 8;
+    private static final int DOLLAR_US = 29;
+    private static final int YEN = 15;
 
     @BindView(R.id.fragment_currency_progressbar)
     ProgressBar mProgressBar;
@@ -69,6 +71,7 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     private CurrencyPresenter mCurrencyPresenter;
     private RateDataSource mDataSource;
+    private CurrencyInteractionListener mListener;
 
     public CurrencyFragment() {
         // Required empty public constructor
@@ -103,15 +106,10 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
         mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.currency_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         mCurrencyPresenter = new CurrencyPresenterImpl(this, mDataSource);
+
         mCurrencyPresenter.callService();
 
         return mView;
-    }
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override
@@ -123,6 +121,7 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         stringBuilder.append(" ");
         stringBuilder.append(getCurrentTime());
 
+        mListener.onFragmentInteraction(stringBuilder.toString());
         Snackbar.make(mView, stringBuilder.toString(), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
@@ -135,14 +134,12 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @Override
     public void error() {
-        Snackbar.make(mView, getString(R.string.fragment_currency_error), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        showSnackBar(getString(R.string.fragment_currency_error));
     }
 
     @Override
     public void generalError() {
-        Snackbar.make(mView, getString(R.string.fragment_currency_general_error), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        showSnackBar(getString(R.string.fragment_currency_general_error));
     }
 
     @Override
@@ -155,12 +152,16 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @Override
     public void hideProgressBar() {
-
         getData();
-        mProgressBar.setVisibility(View.GONE);
-        mEuroInputLayout.setVisibility(View.VISIBLE);
-        mDollarInputLayout.setVisibility(View.VISIBLE);
-        mPoundInputLayout.setVisibility(View.VISIBLE);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mProgressBar.setVisibility(View.GONE);
+                mEuroInputLayout.setVisibility(View.VISIBLE);
+                mDollarInputLayout.setVisibility(View.VISIBLE);
+                mPoundInputLayout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -173,6 +174,24 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     public void onPause() {
         mDataSource.close();
         super.onPause();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof CurrencyInteractionListener) {
+            //init the listener
+            mListener = (CurrencyInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement CurrencyInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override
@@ -192,51 +211,50 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         double coinReference;
         double euroValue;
 
-        if (!mEuroEditText.getText().toString().isEmpty() && mEuroEditText.getText().hashCode() == s.hashCode()) {
+        if (mListRate.size() != 0) {
+            if (!mEuroEditText.getText().toString().isEmpty() && mEuroEditText.getText().hashCode() == s.hashCode()) {
+                userValue = Double.valueOf(mEuroEditText.getText().toString());
+                coinReference = 1.0;
+                setPounds(userValue, coinReference);
 
-            userValue = Double.valueOf(mEuroEditText.getText().toString());
-            coinReference = 1.0;
+                setDollarUS(userValue, coinReference);
 
-
-            setPounds(userValue, coinReference);
-
-            setDollarUS(userValue, coinReference);
-
-            setYen(userValue, coinReference);
+                setYen(userValue, coinReference);
 
 
-        } else if (!mPoundEditText.getText().toString().isEmpty() && mPoundEditText.getText().hashCode() == s.hashCode()) {
+            } else if (!mPoundEditText.getText().toString().isEmpty() && mPoundEditText.getText().hashCode() == s.hashCode()) {
 
-            currentValue = 1.0;
-            userValue = Double.valueOf(mPoundEditText.getText().toString());
-            coinReference = mListRate.get(POUNDS).getValue();
+                currentValue = 1.0;
+                userValue = Double.valueOf(mPoundEditText.getText().toString());
+                coinReference = mListRate.get(POUNDS).getValue();
+                euroValue = calculateDouble(currentValue, userValue, coinReference);
 
-            setEuro(currentValue, userValue, coinReference);
+                setEuro(currentValue, userValue, coinReference);
 
-            euroValue = calculateDouble(currentValue, userValue, coinReference);
+                userValue = euroValue;
+                coinReference = 1.0;
+                setDollarUS(userValue, coinReference);
 
-            userValue = euroValue;
-            coinReference = 1.0;
+                setYen(userValue, coinReference);
 
-            setDollarUS(userValue, coinReference);
+            } else if (!mDollarEditText.getText().toString().isEmpty() && mDollarEditText.getText().hashCode() == s.hashCode()) {
+                currentValue = 1.0;
+                userValue = Double.valueOf(mDollarEditText.getText().toString());
+                coinReference = mListRate.get(DOLLAR_US).getValue();
+                setEuro(currentValue, userValue, coinReference);
 
-            setYen(userValue, coinReference);
+                euroValue = calculateDouble(currentValue, userValue, coinReference);
 
-        } else if (!mDollarEditText.getText().toString().isEmpty() && mDollarEditText.getText().hashCode() == s.hashCode()) {
-            currentValue = 1.0;
-            userValue = Double.valueOf(mDollarEditText.getText().toString());
-            coinReference = mListRate.get(DOLLAR_US).getValue();
+                userValue = euroValue;
+                coinReference = 1.0;
+                setPounds(userValue, coinReference);
 
-            euroValue = calculateDouble(currentValue, userValue, coinReference);
-
-            setEuro(currentValue, userValue, coinReference);
-
-            userValue = euroValue;
-            coinReference = 1.0;
-
-            setPounds(userValue, coinReference);
+            }
+        } else {
+            showSnackBar(getString(R.string.fragment_currency_general_error));
         }
     }
+
 
     public void getData() {
         mListRate = mDataSource.getAllRates();
@@ -273,5 +291,19 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     public double calculateDouble(double currentValue, double userValue, double coinReference) {
         return (currentValue * userValue) / coinReference;
+    }
+
+    public void showSnackBar(String string) {
+        hideKeyboard();
+        Snackbar.make(mView, string, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    public void hideKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
