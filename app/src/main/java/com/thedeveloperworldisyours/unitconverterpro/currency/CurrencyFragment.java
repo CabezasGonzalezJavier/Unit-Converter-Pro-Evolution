@@ -206,49 +206,76 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @Override
     public void afterTextChanged(Editable s) {
-        double currentValue;
+        double currentValue = 1.0;
         double userValue;
         double coinReference;
         double euroValue;
 
         if (mListRate.size() != 0) {
-            if (!mEuroEditText.getText().toString().isEmpty() && mEuroEditText.getText().hashCode() == s.hashCode()) {
-                userValue = Double.valueOf(mEuroEditText.getText().toString());
-                coinReference = 1.0;
-                setPounds(userValue, coinReference);
+            if (mEuroEditText.getText().hashCode() == s.hashCode()) {
+                if (mEuroEditText.getText().toString().isEmpty()) {
+                    setEmptyField();
+                } else {
 
-                setDollarUS(userValue, coinReference);
+                    userValue = Double.valueOf(mEuroEditText.getText().toString());
+                    coinReference = 1.0;
+                    setPounds(userValue, coinReference);
 
-                setYen(userValue, coinReference);
+                    setUSDollar(userValue, coinReference);
 
+                    setYen(userValue, coinReference);
+                }
 
-            } else if (!mPoundEditText.getText().toString().isEmpty() && mPoundEditText.getText().hashCode() == s.hashCode()) {
+            } else if (mPoundEditText.getText().hashCode() == s.hashCode()) {
+                if (mPoundEditText.getText().toString().isEmpty()) {
+                    setEmptyField();
+                } else {
 
-                currentValue = 1.0;
-                userValue = Double.valueOf(mPoundEditText.getText().toString());
-                coinReference = mListRate.get(POUNDS).getValue();
-                euroValue = calculateDouble(currentValue, userValue, coinReference);
+                    userValue = Double.valueOf(mPoundEditText.getText().toString());
+                    coinReference = mListRate.get(POUNDS).getValue();
+                    setEuro(currentValue, userValue, coinReference);
 
-                setEuro(currentValue, userValue, coinReference);
+                    euroValue = calculateDouble(currentValue, userValue, coinReference);
 
-                userValue = euroValue;
-                coinReference = 1.0;
-                setDollarUS(userValue, coinReference);
+                    userValue = euroValue;
+                    coinReference = 1.0;
+                    setUSDollar(userValue, coinReference);
+                    setYen(userValue, coinReference);
+                }
 
-                setYen(userValue, coinReference);
+            } else if (mDollarEditText.getText().hashCode() == s.hashCode()) {
+                if (mDollarEditText.getText().toString().isEmpty()) {
+                    setEmptyField();
+                } else {
 
-            } else if (!mDollarEditText.getText().toString().isEmpty() && mDollarEditText.getText().hashCode() == s.hashCode()) {
-                currentValue = 1.0;
-                userValue = Double.valueOf(mDollarEditText.getText().toString());
-                coinReference = mListRate.get(DOLLAR_US).getValue();
-                setEuro(currentValue, userValue, coinReference);
+                    userValue = Double.valueOf(mDollarEditText.getText().toString());
+                    coinReference = mListRate.get(DOLLAR_US).getValue();
+                    setEuro(currentValue, userValue, coinReference);
 
-                euroValue = calculateDouble(currentValue, userValue, coinReference);
+                    euroValue = calculateDouble(currentValue, userValue, coinReference);
 
-                userValue = euroValue;
-                coinReference = 1.0;
-                setPounds(userValue, coinReference);
+                    userValue = euroValue;
+                    coinReference = 1.0;
+                    setPounds(userValue, coinReference);
+                    setYen(userValue, coinReference);
+                }
 
+            } else if (mYenEditText.getText().hashCode() == s.hashCode()) {
+                if (mYenEditText.getText().toString().isEmpty()) {
+                    setEmptyField();
+                } else {
+
+                    userValue = Double.valueOf(mYenEditText.getText().toString());
+                    coinReference = mListRate.get(YEN).getValue();
+                    setEuro(currentValue, userValue, coinReference);
+
+                    euroValue = calculateDouble(currentValue, userValue, coinReference);
+
+                    userValue = euroValue;
+                    coinReference = 1.0;
+                    setUSDollar(userValue, coinReference);
+                    setPounds(userValue, coinReference);
+                }
             }
         } else {
             showSnackBar(getString(R.string.fragment_currency_general_error));
@@ -273,7 +300,7 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         mEuroEditText.addTextChangedListener(this);
     }
 
-    public void setDollarUS(double userValue, double coinReference) {
+    public void setUSDollar(double userValue, double coinReference) {
         mDollarEditText.removeTextChangedListener(this);
         mDollarEditText.setText(calculate(mListRate.get(DOLLAR_US).getValue(), userValue, coinReference));
         mDollarEditText.addTextChangedListener(this);
@@ -286,7 +313,12 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     }
 
     public String calculate(double currentValue, double userValue, double coinReference) {
-        return String.valueOf((currentValue * userValue) / coinReference);
+
+        return String.valueOf(round((currentValue * userValue) / coinReference, 1));
+    }
+
+    public static double round(double value, int scale) {
+        return Math.round(value * Math.pow(10000, scale)) / Math.pow(10000, scale);
     }
 
     public double calculateDouble(double currentValue, double userValue, double coinReference) {
@@ -305,5 +337,24 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public void setEmptyField() {
+
+        mPoundEditText.removeTextChangedListener(this);
+        mPoundEditText.setText("");
+        mPoundEditText.addTextChangedListener(this);
+
+        mEuroEditText.removeTextChangedListener(this);
+        mEuroEditText.setText("");
+        mEuroEditText.addTextChangedListener(this);
+
+        mDollarEditText.removeTextChangedListener(this);
+        mDollarEditText.setText("");
+        mDollarEditText.addTextChangedListener(this);
+
+        mYenEditText.removeTextChangedListener(this);
+        mYenEditText.setText("");
+        mYenEditText.addTextChangedListener(this);
     }
 }
