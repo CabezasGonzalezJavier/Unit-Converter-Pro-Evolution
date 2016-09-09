@@ -41,4 +41,9 @@
         <item name="colorControlActivated">@color/currency_color</item>
     </style>
 
+    <style name="AppTheme.Transparent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

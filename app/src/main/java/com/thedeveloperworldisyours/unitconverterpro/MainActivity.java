@@ -1,10 +1,10 @@
 package com.thedeveloperworldisyours.unitconverterpro;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -28,6 +28,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.thedeveloperworldisyours.unitconverterpro.calculator.CalculatorActivity;
 import com.thedeveloperworldisyours.unitconverterpro.common.utils.PreferencesManager;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyFragment;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyInteractionListener;
@@ -42,10 +43,9 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
     private static final int WORK_UNIT = 5;
     private static final int FUEL_UNIT = 6;
     private static final int VOLUME_UNIT = 7;
-    private static final String UPDATE = "com.thedeveloperworldisyours.unitconverterpro.UPDATE";
 
     private Drawer mResult = null;
-    private FloatingActionButton mFab;
+    private FloatingActionButton mFloatingActionButton;
     private Toolbar mToolbar;
     private CurrencyFragment mCurrencyFragment;
 
@@ -54,19 +54,30 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
 
         creteNavigationDrawer();
 
-        mFab.setOnClickListener(new View.OnClickListener() {
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                goToCalculator();
+//                hideFloatingActionButton();
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction()
+//                        .setCustomAnimations(R.anim.go_in, R.anim.not_move,R.anim.go_out, R.anim.not_move)
+//                        .replace(R.id.content_main_container, CalculatorFragment.newInstance())
+//                        .commit();
             }
         });
 
+    }
+
+    public void goToCalculator() {
+        Intent intent = new Intent(this, CalculatorActivity.class);
+        overridePendingTransition(R.anim.go_in, R.anim.not_move);
+        startActivity(intent);
     }
 
     public void creteNavigationDrawer() {
@@ -166,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
                         mToolbar.setTitle(titleString);
                         mToolbar.setSubtitle(subTitle);
                         mToolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, backgroundColor));
-                        mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, backgroundColor)));
+                        mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, backgroundColor)));
                         return false;
                     }
                 })
@@ -210,5 +221,14 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
     @Override
     public void onFragmentInteraction(String string) {
         mToolbar.setSubtitle(string);
+    }
+
+    public void hideFloatingActionButton() {
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) mFloatingActionButton.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        p.width = 0;
+        p.height = 0;
+        mFloatingActionButton.setLayoutParams(p);
+        mFloatingActionButton.setVisibility(View.GONE);
     }
 }
