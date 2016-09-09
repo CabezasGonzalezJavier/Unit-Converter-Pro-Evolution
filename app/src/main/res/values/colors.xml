@@ -41,4 +41,7 @@
     <color name="volume_color">#db8005</color>
     <color name="mass_color">#0473a9</color>
     <color name="shoe_color">#04a98d</color>
+
+    <!--Effect-->
+    <color name="black_transparent">#59000000</color>
 </resources>

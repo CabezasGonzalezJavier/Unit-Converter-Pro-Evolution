@@ -7,28 +7,45 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="90dp"
     android:weightSum="5"
     tools:context="com.thedeveloperworldisyours.unitconverterpro.calculator.CalculatorActivity">
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="2" />
+        android:layout_weight="2"
+        android:background="@color/black_transparent"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <EditText
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="3"
+        android:background="@color/black_transparent"
         android:orientation="vertical"
         android:weightSum="4">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:weightSum="4"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <Button
                 android:layout_width="wrap_content"
@@ -50,13 +67,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:weightSum="4"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <Button
                 android:layout_width="wrap_content"
@@ -78,13 +95,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:weightSum="4"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <Button
                 android:layout_width="wrap_content"
@@ -106,13 +123,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:weightSum="4"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <Button
                 android:layout_width="wrap_content"
