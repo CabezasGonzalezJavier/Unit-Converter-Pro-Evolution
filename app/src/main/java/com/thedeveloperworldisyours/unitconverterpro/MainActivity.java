@@ -1,5 +1,6 @@
 package com.thedeveloperworldisyours.unitconverterpro;
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,11 +28,12 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.thedeveloperworldisyours.unitconverterpro.common.utils.PreferencesManager;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyFragment;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyInteractionListener;
 import com.thedeveloperworldisyours.unitconverterpro.fragment.AreaFragment;
 
-public class MainActivity extends AppCompatActivity implements CurrencyInteractionListener{
+public class MainActivity extends AppCompatActivity implements CurrencyInteractionListener {
 
     private static final int BASIC_CATEGORY = 1;
     private static final int CURRENCY_UNIT = 2;
@@ -40,10 +42,12 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
     private static final int WORK_UNIT = 5;
     private static final int FUEL_UNIT = 6;
     private static final int VOLUME_UNIT = 7;
+    private static final String UPDATE = "com.thedeveloperworldisyours.unitconverterpro.UPDATE";
 
     private Drawer mResult = null;
     private FloatingActionButton mFab;
     private Toolbar mToolbar;
+    private CurrencyFragment mCurrencyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
 
                         int backgroundColor = R.color.currency_color;
                         int titleString = R.string.fragment_currency_title;
+                        String subTitle = "";
 
                         switch ((int) drawerItem.getIdentifier()) {
                             case BASIC_CATEGORY:
@@ -116,11 +121,13 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
                                 break;
 
                             case CURRENCY_UNIT:
+                                mCurrencyFragment = CurrencyFragment.newInstance();
                                 fragmentManager.beginTransaction()
-                                        .replace(R.id.content_main_container, CurrencyFragment.newInstance())
+                                        .replace(R.id.content_main_container, mCurrencyFragment)
                                         .commit();
                                 backgroundColor = R.color.currency_color;
                                 titleString = R.string.fragment_currency_title;
+                                subTitle = PreferencesManager.getInstance().getUpdate();
                                 break;
 
                             case AREA_UNIT:
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
                         }
 
                         mToolbar.setTitle(titleString);
-                        mToolbar.setSubtitle("");
+                        mToolbar.setSubtitle(subTitle);
                         mToolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, backgroundColor));
                         mFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(MainActivity.this, backgroundColor)));
                         return false;
@@ -182,19 +189,19 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_clear_field:
+                mCurrencyFragment.setEmptyField();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

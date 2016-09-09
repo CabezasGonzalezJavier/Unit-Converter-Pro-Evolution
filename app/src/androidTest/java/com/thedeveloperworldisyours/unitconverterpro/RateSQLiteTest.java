@@ -42,7 +42,7 @@ public class RateSQLiteTest {
     }
 
     @Test
-    public void shouldAddExpenseType() throws Exception {
+    public void testShouldAddExpenseType() throws Exception {
         mRateDataSource.createRate("AUD", 1.2);
         List<Rate> rate = mRateDataSource.getAllRates();
 
@@ -52,7 +52,7 @@ public class RateSQLiteTest {
     }
 
     @Test
-    public void deleteAllTest() {
+    public void testDeleteAll() {
         mRateDataSource.deleteAll();
         List<Rate> rate = mRateDataSource.getAllRates();
 
@@ -60,7 +60,7 @@ public class RateSQLiteTest {
     }
 
     @Test
-    public void deleteOnlyOneTest() {
+    public void testDeleteOnlyOne() {
         mRateDataSource.createRate("AUD", 1.2);
         List<Rate> rate = mRateDataSource.getAllRates();
 

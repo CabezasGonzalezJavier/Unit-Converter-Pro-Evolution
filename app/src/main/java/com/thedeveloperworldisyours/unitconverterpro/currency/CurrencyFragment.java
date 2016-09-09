@@ -1,6 +1,7 @@
 package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.thedeveloperworldisyours.unitconverterpro.R;
+import com.thedeveloperworldisyours.unitconverterpro.common.utils.PreferencesManager;
 import com.thedeveloperworldisyours.unitconverterpro.model.Currency;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.Rate;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.RateDataSource;
@@ -120,6 +122,8 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         stringBuilder.append(currency.getDate());
         stringBuilder.append(" ");
         stringBuilder.append(getCurrentTime());
+
+        PreferencesManager.getInstance().setUpdate(stringBuilder.toString());
 
         mListener.onFragmentInteraction(stringBuilder.toString());
         Snackbar.make(mView, stringBuilder.toString(), Snackbar.LENGTH_LONG)
