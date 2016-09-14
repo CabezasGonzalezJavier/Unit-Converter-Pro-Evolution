@@ -2,9 +2,6 @@ package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientHTTP;
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientHTTPFactory;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.Request;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.RequestFactory;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
 
 import org.junit.Before;
 import org.junit.Test;

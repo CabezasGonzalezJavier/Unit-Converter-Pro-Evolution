@@ -1,15 +1,12 @@
 package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTask;
-import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyInterceptorImpl;
 import com.thedeveloperworldisyours.unitconverterpro.model.Rates;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 /**

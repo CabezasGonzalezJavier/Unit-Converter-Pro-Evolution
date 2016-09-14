@@ -17,7 +17,7 @@ public class Rates {
     @SerializedName("BRL")
     @Expose
     private Double bRL;
-
+//3
     @SerializedName("CAD")
     @Expose
     private Double cAD;
@@ -37,7 +37,7 @@ public class Rates {
     @SerializedName("GBP")
     @Expose
     private Double gBP;
-
+//9
     @SerializedName("HKD")
     @Expose
     private Double hKD;
@@ -57,7 +57,7 @@ public class Rates {
     @SerializedName("INR")
     @Expose
     private Double iNR;
-
+//15
     @SerializedName("JPY")
     @Expose
     private Double jPY;
@@ -77,7 +77,7 @@ public class Rates {
     @SerializedName("NZD")
     @Expose
     private Double nZD;
-
+//21
     @SerializedName("PHP")
     @Expose
     private Double pHP;
@@ -97,7 +97,7 @@ public class Rates {
     @SerializedName("SGD")
     @Expose
     private Double sGD;
-
+//27
     @SerializedName("THB")
     @Expose
     private Double tHB;

@@ -1,8 +1,5 @@
 package com.thedeveloperworldisyours.unitconverterpro.client;
 
-import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTask;
-import com.thedeveloperworldisyours.unitconverterpro.client.ClientAsyncTaskImpl;
-import com.thedeveloperworldisyours.unitconverterpro.client.HttpURLConnectionFactory;
 import com.thedeveloperworldisyours.unitconverterpro.common.utils.Constant;
 import com.thedeveloperworldisyours.unitconverterpro.model.Response;
 

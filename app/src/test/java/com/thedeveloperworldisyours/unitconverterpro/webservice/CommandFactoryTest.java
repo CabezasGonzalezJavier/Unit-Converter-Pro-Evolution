@@ -1,10 +1,5 @@
 package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
-import com.thedeveloperworldisyours.unitconverterpro.webservice.Command;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.CommandFactory;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.GetCommand;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
-
 import org.junit.Before;
 import org.junit.Test;
 

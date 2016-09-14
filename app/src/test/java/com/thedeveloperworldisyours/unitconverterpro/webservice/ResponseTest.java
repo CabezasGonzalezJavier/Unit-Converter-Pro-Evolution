@@ -1,9 +1,5 @@
 package com.thedeveloperworldisyours.unitconverterpro.webservice;
 
-import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseHandler;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseImpl;
-import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseListener;
-
 import org.junit.Before;
 import org.junit.Test;
 

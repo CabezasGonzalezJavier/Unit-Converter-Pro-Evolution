@@ -1,7 +1,6 @@
 package com.thedeveloperworldisyours.unitconverterpro.currency;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -39,6 +38,16 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     private static final int POUNDS = 8;
     private static final int DOLLAR_US = 29;
     private static final int YEN = 15;
+    private static final int BULGARIAN = 1;
+    private static final int CZECH = 6;
+    private static final int DANISH = 7;
+    private static final int HUNGARIAN =11;
+    private static final int POLISH =22;
+
+    private double mCurrentValue = 1.0;
+    private double mUserValue;
+    private double mCoinReference;
+    private double mEuroValue;
 
     @BindView(R.id.fragment_currency_progressbar)
     ProgressBar mProgressBar;
@@ -55,6 +64,21 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     @BindView(R.id.fragment_currency_yen_input_layout)
     TextInputLayout mYenInputLayout;
 
+    @BindView(R.id.fragment_currency_bulgarian_input_layout)
+    TextInputLayout mBulgarianInputLayout;
+
+    @BindView(R.id.fragment_currency_czech_input_layout)
+    TextInputLayout mCzechInputLayout;
+
+    @BindView(R.id.fragment_currency_danish_input_layout)
+    TextInputLayout mDanishInputLayout;
+
+    @BindView(R.id.fragment_currency_hungarian_input_layout)
+    TextInputLayout mHungarianInputLayout;
+
+    @BindView(R.id.fragment_currency_polish_input_layout)
+    TextInputLayout mPolishInputLayout;
+
     @BindView(R.id.fragment_currency_pound_edit_text)
     EditText mPoundEditText;
 
@@ -66,6 +90,21 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @BindView(R.id.fragment_currency_yen_edit_text)
     EditText mYenEditText;
+
+    @BindView(R.id.fragment_currency_bulgarian_edit_text)
+    EditText mBulgarianEditText;
+
+    @BindView(R.id.fragment_currency_czech_edit_text)
+    EditText mCzechEditText;
+
+    @BindView(R.id.fragment_currency_danish_edit_text)
+    EditText mDanishEditText;
+
+    @BindView(R.id.fragment_currency_hungarian_edit_text)
+    EditText mHungarianEditText;
+
+    @BindView(R.id.fragment_currency_polish_edit_text)
+    EditText mPolishEditText;
 
     private View mView;
 
@@ -105,6 +144,11 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         mDollarEditText.addTextChangedListener(this);
         mEuroEditText.addTextChangedListener(this);
         mYenEditText.addTextChangedListener(this);
+        mBulgarianEditText.addTextChangedListener(this);
+        mCzechEditText.addTextChangedListener(this);
+        mDanishEditText.addTextChangedListener(this);
+        mHungarianEditText.addTextChangedListener(this);
+        mPolishEditText.addTextChangedListener(this);
 
         mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.currency_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         mCurrencyPresenter = new CurrencyPresenterImpl(this, mDataSource);
@@ -152,6 +196,12 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         mEuroInputLayout.setVisibility(View.GONE);
         mDollarInputLayout.setVisibility(View.GONE);
         mPoundInputLayout.setVisibility(View.GONE);
+        mYenInputLayout.setVisibility(View.GONE);
+        mBulgarianInputLayout.setVisibility(View.GONE);
+        mCzechInputLayout.setVisibility(View.GONE);
+        mDanishInputLayout.setVisibility(View.GONE);
+        mHungarianInputLayout.setVisibility(View.GONE);
+        mPolishInputLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -164,6 +214,12 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
                 mEuroInputLayout.setVisibility(View.VISIBLE);
                 mDollarInputLayout.setVisibility(View.VISIBLE);
                 mPoundInputLayout.setVisibility(View.VISIBLE);
+                mYenInputLayout.setVisibility(View.VISIBLE);
+                mBulgarianInputLayout.setVisibility(View.VISIBLE);
+                mCzechInputLayout.setVisibility(View.VISIBLE);
+                mDanishInputLayout.setVisibility(View.VISIBLE);
+                mHungarianInputLayout.setVisibility(View.VISIBLE);
+                mPolishInputLayout.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -208,12 +264,20 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     }
 
+    public void generalSetEuro(String editText, int constant){
+        mUserValue = Double.valueOf(editText);
+        mCoinReference = mListRate.get(constant).getValue();
+        setEuro(mCurrentValue, mUserValue, mCoinReference);
+
+        mEuroValue = calculateDouble(mCurrentValue, mUserValue, mCoinReference);
+
+        mUserValue = mEuroValue;
+        mCoinReference = 1.0;
+    }
+
     @Override
     public void afterTextChanged(Editable s) {
-        double currentValue = 1.0;
-        double userValue;
-        double coinReference;
-        double euroValue;
+
 
         if (mListRate.size() != 0) {
             if (mEuroEditText.getText().hashCode() == s.hashCode()) {
@@ -221,64 +285,128 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
                     setEmptyField();
                 } else {
 
-                    userValue = Double.valueOf(mEuroEditText.getText().toString());
-                    coinReference = 1.0;
-                    setPounds(userValue, coinReference);
+                    mUserValue = Double.valueOf(mEuroEditText.getText().toString());
+                    mCoinReference = 1.0;
+                    setPounds(mUserValue, mCoinReference);
 
-                    setUSDollar(userValue, coinReference);
-
-                    setYen(userValue, coinReference);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
                 }
 
             } else if (mPoundEditText.getText().hashCode() == s.hashCode()) {
                 if (mPoundEditText.getText().toString().isEmpty()) {
                     setEmptyField();
                 } else {
+                    generalSetEuro(mPoundEditText.getText().toString(), POUNDS);
 
-                    userValue = Double.valueOf(mPoundEditText.getText().toString());
-                    coinReference = mListRate.get(POUNDS).getValue();
-                    setEuro(currentValue, userValue, coinReference);
-
-                    euroValue = calculateDouble(currentValue, userValue, coinReference);
-
-                    userValue = euroValue;
-                    coinReference = 1.0;
-                    setUSDollar(userValue, coinReference);
-                    setYen(userValue, coinReference);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
                 }
 
             } else if (mDollarEditText.getText().hashCode() == s.hashCode()) {
                 if (mDollarEditText.getText().toString().isEmpty()) {
                     setEmptyField();
                 } else {
+                    generalSetEuro(mDollarEditText.getText().toString(), DOLLAR_US);
 
-                    userValue = Double.valueOf(mDollarEditText.getText().toString());
-                    coinReference = mListRate.get(DOLLAR_US).getValue();
-                    setEuro(currentValue, userValue, coinReference);
-
-                    euroValue = calculateDouble(currentValue, userValue, coinReference);
-
-                    userValue = euroValue;
-                    coinReference = 1.0;
-                    setPounds(userValue, coinReference);
-                    setYen(userValue, coinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
                 }
 
             } else if (mYenEditText.getText().hashCode() == s.hashCode()) {
                 if (mYenEditText.getText().toString().isEmpty()) {
                     setEmptyField();
                 } else {
+                    generalSetEuro(mYenEditText.getText().toString(), YEN);
 
-                    userValue = Double.valueOf(mYenEditText.getText().toString());
-                    coinReference = mListRate.get(YEN).getValue();
-                    setEuro(currentValue, userValue, coinReference);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
+                }
+            } else if (mBulgarianEditText.getText().hashCode() == s.hashCode()) {
+                if (mBulgarianEditText.getText().toString().isEmpty()){
+                    setEmptyField();
+                } else {
+                    generalSetEuro(mBulgarianEditText.getText().toString(), BULGARIAN);
 
-                    euroValue = calculateDouble(currentValue, userValue, coinReference);
-
-                    userValue = euroValue;
-                    coinReference = 1.0;
-                    setUSDollar(userValue, coinReference);
-                    setPounds(userValue, coinReference);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
+                }
+            } else if (mCzechEditText.getText().hashCode() == s.hashCode()) {
+                if (mCzechEditText.getText().toString().isEmpty()){
+                    setEmptyField();
+                } else {
+                    generalSetEuro(mCzechEditText.getText().toString(), CZECH);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
+                }
+            } else if (mDanishEditText.getText().hashCode() == s.hashCode()) {
+                if (mDanishEditText.getText().toString().isEmpty()){
+                    setEmptyField();
+                } else {
+                    generalSetEuro(mDanishEditText.getText().toString(), DANISH);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
+                }
+            } else if (mHungarianEditText.getText().hashCode() == s.hashCode()) {
+                if (mHungarianEditText.getText().toString().isEmpty()) {
+                    setEmptyField();
+                } else {
+                    generalSetEuro(mHungarianEditText.getText().toString(), HUNGARIAN);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setPolish(mUserValue, mCoinReference);
+                }
+            } else if (mPolishEditText.getText().hashCode() == s.hashCode()) {
+                if (mPolishEditText.getText().toString().isEmpty()) {
+                    setEmptyField();
+                } else {
+                    generalSetEuro(mPolishEditText.getText().toString(), POLISH);
+                    setUSDollar(mUserValue, mCoinReference);
+                    setPounds(mUserValue, mCoinReference);
+                    setYen(mUserValue, mCoinReference);
+                    setBulgarian(mUserValue, mCoinReference);
+                    setCzech(mUserValue, mCoinReference);
+                    setDanish(mUserValue, mCoinReference);
+                    setHungarian(mUserValue, mCoinReference);
                 }
             }
         } else {
@@ -314,6 +442,36 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         mYenEditText.removeTextChangedListener(this);
         mYenEditText.setText(calculate(mListRate.get(YEN).getValue(), userValue, coinReference));
         mYenEditText.addTextChangedListener(this);
+    }
+
+    public void setBulgarian(double userValue, double coinReference) {
+        mBulgarianEditText.removeTextChangedListener(this);
+        mBulgarianEditText.setText(calculate(mListRate.get(BULGARIAN).getValue(), userValue, coinReference));
+        mBulgarianEditText.addTextChangedListener(this);
+    }
+
+    public void setCzech(double userValue, double coinReference) {
+        mCzechEditText.removeTextChangedListener(this);
+        mCzechEditText.setText(calculate(mListRate.get(CZECH).getValue(), userValue, coinReference));
+        mCzechEditText.addTextChangedListener(this);
+    }
+
+    public void setDanish(double userValue, double coinReference) {
+        mDanishEditText.removeTextChangedListener(this);
+        mDanishEditText.setText(calculate(mListRate.get(DANISH).getValue(), userValue, coinReference));
+        mDanishEditText.addTextChangedListener(this);
+    }
+
+    public void setHungarian(double userValue, double coinReference) {
+        mHungarianEditText.removeTextChangedListener(this);
+        mHungarianEditText.setText(calculate(mListRate.get(HUNGARIAN).getValue(), userValue, coinReference));
+        mHungarianEditText.addTextChangedListener(this);
+    }
+
+    public void setPolish(double userValue, double coinReference) {
+        mPolishEditText.removeTextChangedListener(this);
+        mPolishEditText.setText(calculate(mListRate.get(POLISH).getValue(), userValue, coinReference));
+        mPolishEditText.addTextChangedListener(this);
     }
 
     public String calculate(double currentValue, double userValue, double coinReference) {
@@ -360,5 +518,25 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
         mYenEditText.removeTextChangedListener(this);
         mYenEditText.setText("");
         mYenEditText.addTextChangedListener(this);
+
+        mBulgarianEditText.removeTextChangedListener(this);
+        mBulgarianEditText.setText("");
+        mBulgarianEditText.addTextChangedListener(this);
+
+        mCzechEditText.removeTextChangedListener(this);
+        mCzechEditText.setText("");
+        mCzechEditText.addTextChangedListener(this);
+
+        mDanishEditText.removeTextChangedListener(this);
+        mDanishEditText.setText("");
+        mDanishEditText.addTextChangedListener(this);
+
+        mHungarianEditText.removeTextChangedListener(this);
+        mHungarianEditText.setText("");
+        mHungarianEditText.addTextChangedListener(this);
+
+        mPolishEditText.removeTextChangedListener(this);
+        mPolishEditText.setText("");
+        mPolishEditText.addTextChangedListener(this);
     }
 }
