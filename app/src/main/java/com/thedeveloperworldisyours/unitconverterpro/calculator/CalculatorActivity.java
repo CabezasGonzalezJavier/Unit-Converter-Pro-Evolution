@@ -30,6 +30,8 @@ public class CalculatorActivity extends AppCompatActivity {
     private final static int DIVIDE = 3;
     private final static int MULTIPLY = 4;
 
+    Calculator mCalculator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -39,6 +41,7 @@ public class CalculatorActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         ButterKnife.bind(this);
         mResult.setText("0");
+        mCalculator = new CalculatorImpl();
     }
 
     @OnClick(R.id.activity_calculator_remove)
@@ -55,26 +58,11 @@ public class CalculatorActivity extends AppCompatActivity {
     public void showResult(View view) {
 
         mSecondValue = Double.valueOf(mResult.getText().toString());
-        String result = calculateResult();
+        String result = mCalculator.calculateResult(mCase, mFirstValue, mSecondValue);
         mResult.setText(result);
         mFirstValue = Double.valueOf(result);
         mSecondValue = 0;
         mClean = true;
-    }
-
-    public String calculateResult() {
-        switch (mCase) {
-            case DIVIDE:
-                return String.valueOf(mFirstValue / mSecondValue);
-            case PLUS:
-                return String.valueOf(mFirstValue + mSecondValue);
-            case MULTIPLY:
-                return String.valueOf(mFirstValue * mSecondValue);
-            case DIMINISH:
-                return String.valueOf(mFirstValue - mSecondValue);
-            default:
-                return String.valueOf("");
-        }
     }
 
     @OnClick(R.id.activity_calculator_divide)

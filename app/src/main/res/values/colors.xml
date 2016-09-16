@@ -43,5 +43,11 @@
     <color name="shoe_color">#04a98d</color>
 
     <!--Effect-->
-    <color name="black_transparent">#59000000</color>
+    <color name="activity_calculator_black_transparent">#59000000</color>
+    <color name="activity_calculator_black_transparent_calculator">#BF000000</color>
+    <color name="activity_calculator_equal_button">#FFFFBD70</color>
+    <color name="activity_calculator_grey_button">#DDDDDD</color>
+    <color name="activity_calculator_operator_button">#CECECE</color>
+    <color name="activity_calculator_remove_button">#E53B2B</color>
+    <color name="activity_calculator_text">#CEDFCE</color>
 </resources>
