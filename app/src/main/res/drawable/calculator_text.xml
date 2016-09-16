@@ -9,5 +9,9 @@
         android:right="2dp"
         android:top="2dp" />
     <corners android:radius="5dp" />
-    <solid android:color="@color/activity_calculator_text" />
+    <gradient
+        android:startColor="@color/activity_calculator_text"
+        android:endColor="@color/activity_calculator_text_dark"
+        android:angle="270" >
+    </gradient>
 </shape>

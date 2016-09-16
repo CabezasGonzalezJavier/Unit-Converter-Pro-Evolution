@@ -50,4 +50,5 @@
     <color name="activity_calculator_operator_button">#CECECE</color>
     <color name="activity_calculator_remove_button">#E53B2B</color>
     <color name="activity_calculator_text">#CEDFCE</color>
+    <color name="activity_calculator_text_dark">#A4B2A4</color>
 </resources>

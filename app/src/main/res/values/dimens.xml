@@ -8,4 +8,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="margin_top_edit_text">10dp</dimen>
+    <dimen name="activity_calculator_size_text">20sp</dimen>
 </resources>
