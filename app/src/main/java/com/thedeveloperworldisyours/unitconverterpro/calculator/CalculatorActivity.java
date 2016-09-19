@@ -30,6 +30,10 @@ public class CalculatorActivity extends AppCompatActivity {
     private final static int DIVIDE = 3;
     private final static int MULTIPLY = 4;
 
+    private final static String RESULT ="result";
+    private final static String FIRST_VALUE = "first";
+    private final static String SECOND_VALUE = "second";
+
     Calculator mCalculator;
 
     @Override
@@ -42,6 +46,26 @@ public class CalculatorActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mResult.setText("0");
         mCalculator = new CalculatorImpl();
+        restoreMe(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString( RESULT, mResult.getText().toString());
+        outState.putDouble( FIRST_VALUE, mFirstValue);
+        outState.putDouble( SECOND_VALUE, mSecondValue);
+    }
+
+    private void restoreMe(Bundle state) {
+        if (state != null) {
+
+            mResult.setText(state.getString(RESULT));
+            mFirstValue = state.getDouble(FIRST_VALUE);
+            mSecondValue = state.getDouble(SECOND_VALUE);
+
+        }
     }
 
     @OnClick(R.id.activity_calculator_remove)
