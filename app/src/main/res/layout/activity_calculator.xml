@@ -31,17 +31,20 @@
         android:inputType="text"
         android:maxLines="1"
         android:gravity="end"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
         android:textSize="@dimen/activity_calculator_size_text"
         app:layout_heightPercent="10%"
         app:layout_marginLeftPercent="4%"
         app:layout_widthPercent="69%" />
 
-    <Button
+    <ImageButton
         android:id="@+id/activity_calculator_remove"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_above="@+id/activity_calculator_divide"
         android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_backspace_calculator"
         android:background="@drawable/calculator_remove_button"
         app:layout_heightPercent="10%"
         app:layout_marginRightPercent="4%"

@@ -7,12 +7,13 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
  * Created by javierg on 19/09/16.
  */
-public class AutoResizeTextView extends TextView {
+public class AutoResizeTextView extends EditText {
 
     // Minimum text size for this text view
     public static final float MIN_TEXT_SIZE = 26;

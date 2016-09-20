@@ -2,6 +2,7 @@ package com.thedeveloperworldisyours.unitconverterpro.calculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,7 +31,7 @@ public class CalculatorActivity extends AppCompatActivity {
     private final static int DIVIDE = 3;
     private final static int MULTIPLY = 4;
 
-    private final static String RESULT ="result";
+    private final static String RESULT = "result";
     private final static String FIRST_VALUE = "first";
     private final static String SECOND_VALUE = "second";
 
@@ -45,6 +46,7 @@ public class CalculatorActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         ButterKnife.bind(this);
         mResult.setText("0");
+        mResult.setMovementMethod(new ScrollingMovementMethod());
         mCalculator = new CalculatorImpl();
         restoreMe(savedInstanceState);
     }
@@ -53,9 +55,9 @@ public class CalculatorActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString( RESULT, mResult.getText().toString());
-        outState.putDouble( FIRST_VALUE, mFirstValue);
-        outState.putDouble( SECOND_VALUE, mSecondValue);
+        outState.putString(RESULT, mResult.getText().toString());
+        outState.putDouble(FIRST_VALUE, mFirstValue);
+        outState.putDouble(SECOND_VALUE, mSecondValue);
     }
 
     private void restoreMe(Bundle state) {
@@ -71,7 +73,7 @@ public class CalculatorActivity extends AppCompatActivity {
     @OnClick(R.id.activity_calculator_remove)
     public void removeElements(View view) {
         String result = mResult.getText().toString();
-        if (result.length()!=1) {
+        if (result.length() != 1) {
             mResult.setText(result.substring(0, result.length() - 1));
         } else {
             mResult.setText("0");
@@ -84,7 +86,11 @@ public class CalculatorActivity extends AppCompatActivity {
         mSecondValue = Double.valueOf(mResult.getText().toString());
         String result = mCalculator.calculateResult(mCase, mFirstValue, mSecondValue);
         mResult.setText(result);
-        mFirstValue = Double.valueOf(result);
+        if (result.equals("")) {
+            mFirstValue = 0;
+        } else {
+            mFirstValue = Double.valueOf(result);
+        }
         mSecondValue = 0;
         mClean = true;
     }
@@ -113,7 +119,7 @@ public class CalculatorActivity extends AppCompatActivity {
     @OnClick(R.id.activity_calculator_multiply)
     public void multiply() {
         mFirstValue = Double.valueOf(mResult.getText().toString());
-        mCase = MULTIPLY ;
+        mCase = MULTIPLY;
         mClean = true;
     }
 
