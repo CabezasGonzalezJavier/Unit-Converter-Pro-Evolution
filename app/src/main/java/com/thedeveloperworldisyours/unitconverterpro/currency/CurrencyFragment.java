@@ -231,12 +231,6 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     }
 
     @Override
-    public void onPause() {
-        mDataSource.close();
-        super.onPause();
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof CurrencyInteractionListener) {
@@ -251,6 +245,7 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
     @Override
     public void onDetach() {
         super.onDetach();
+        mDataSource.close();
         mListener = null;
     }
 
@@ -277,7 +272,6 @@ public class CurrencyFragment extends Fragment implements CurrencyView, TextWatc
 
     @Override
     public void afterTextChanged(Editable s) {
-
 
         if (mListRate.size() != 0) {
             if (mEuroEditText.getText().hashCode() == s.hashCode()) {

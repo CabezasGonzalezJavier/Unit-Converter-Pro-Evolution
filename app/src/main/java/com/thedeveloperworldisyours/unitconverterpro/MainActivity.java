@@ -58,20 +58,48 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
 
 
         creteNavigationDrawer();
-
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToCalculator();
-//                hideFloatingActionButton();
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                fragmentManager.beginTransaction()
-//                        .setCustomAnimations(R.anim.go_in, R.anim.not_move,R.anim.go_out, R.anim.not_move)
-//                        .replace(R.id.content_main_container, CalculatorFragment.newInstance())
-//                        .commit();
+                methodWhereFabIsHidden();
             }
         });
 
+    }
+    boolean mFabShouldBeShown;
+    FloatingActionButton.OnVisibilityChangedListener fabListener = new FloatingActionButton.OnVisibilityChangedListener() {
+        @Override
+        public void onShown(FloatingActionButton fab) {
+            super.onShown(fab);
+            if(!mFabShouldBeShown){
+                fab.hide();
+            }
+        }
+
+        @Override
+        public void onHidden(FloatingActionButton fab) {
+            super.onHidden(fab);
+            if(mFabShouldBeShown){
+                fab.show();
+            }
+        }
+    };
+
+    public void methodWhereFabIsHidden() {
+        mFabShouldBeShown = false;
+        mFloatingActionButton.hide(fabListener);
+    }
+
+    public void methodWhereFabIsShown() {
+        mFabShouldBeShown = true;
+        mFloatingActionButton.show(fabListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        methodWhereFabIsShown();
     }
 
     public void goToCalculator() {
@@ -223,12 +251,4 @@ public class MainActivity extends AppCompatActivity implements CurrencyInteracti
         mToolbar.setSubtitle(string);
     }
 
-    public void hideFloatingActionButton() {
-        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) mFloatingActionButton.getLayoutParams();
-        p.setAnchorId(View.NO_ID);
-        p.width = 0;
-        p.height = 0;
-        mFloatingActionButton.setLayoutParams(p);
-        mFloatingActionButton.setVisibility(View.GONE);
-    }
 }

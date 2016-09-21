@@ -2,6 +2,7 @@ package com.thedeveloperworldisyours.unitconverterpro.calculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ArrowKeyMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
@@ -78,6 +79,7 @@ public class CalculatorActivity extends AppCompatActivity {
         } else {
             mResult.setText("0");
         }
+        mResult.setMovementMethod(ArrowKeyMovementMethod.getInstance());
     }
 
     @OnClick(R.id.activity_calculator_equals)
@@ -125,66 +127,77 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @OnClick(R.id.activity_calculator_one)
     public void oneClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("1");
     }
 
     @OnClick(R.id.activity_calculator_two)
     public void twoClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("2");
     }
 
     @OnClick(R.id.activity_calculator_three)
     public void threeClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("3");
     }
 
     @OnClick(R.id.activity_calculator_four)
     public void fourClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("4");
     }
 
     @OnClick(R.id.activity_calculator_five)
     public void fiveClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("5");
     }
 
     @OnClick(R.id.activity_calculator_six)
     public void sixClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("6");
     }
 
     @OnClick(R.id.activity_calculator_seven)
     public void sevenClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("7");
     }
 
     @OnClick(R.id.activity_calculator_eight)
     public void eightClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("8");
     }
 
     @OnClick(R.id.activity_calculator_nine)
     public void nineClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("9");
     }
 
     @OnClick(R.id.activity_calculator_zero)
     public void zeroClick(View view) {
+        cleanZero();
         cleanScreen();
         addString("0");
     }
 
     @OnClick(R.id.activity_calculator_dot)
     public void dotClick() {
+        cleanZero();
         cleanScreen();
         addString(".");
     }
@@ -196,6 +209,13 @@ public class CalculatorActivity extends AppCompatActivity {
         mResult.setText(stringBuilder.toString());
 
     }
+
+    public void cleanZero() {
+        if (mResult.getText().toString().equals("0")){
+            mClean = true;
+        }
+    }
+
 
     public void cleanScreen() {
         if (mClean) {
