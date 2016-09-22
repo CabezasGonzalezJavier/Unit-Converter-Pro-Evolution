@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.thedeveloperworldisyours.unitconverterpro.R;
@@ -19,10 +20,13 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_calculator_result)
     TextView mResult;
+    @BindView(R.id.activity_calculator_dot)
+    Button mDotButton;
 
     private double mFirstValue = 0;
     private double mSecondValue = 0;
 
+    private boolean mAfterOperatorClean = false;
     private boolean mClean = true;
 
     private int mCase = 0;
@@ -75,6 +79,9 @@ public class CalculatorActivity extends AppCompatActivity {
     public void removeElements(View view) {
         String result = mResult.getText().toString();
         if (result.length() != 1) {
+            if (result.substring(result.length() - 1, result.length()).equals(".")) {
+                mDotButton.setEnabled(true);
+            }
             mResult.setText(result.substring(0, result.length() - 1));
         } else {
             mResult.setText("0");
@@ -82,10 +89,15 @@ public class CalculatorActivity extends AppCompatActivity {
         mResult.setMovementMethod(ArrowKeyMovementMethod.getInstance());
     }
 
+
     @OnClick(R.id.activity_calculator_equals)
     public void showResult(View view) {
 
-        mSecondValue = Double.valueOf(mResult.getText().toString());
+        if (mResult.getText().equals("")) {
+            mSecondValue = 0;
+        } else {
+            mSecondValue = Double.valueOf(mResult.getText().toString());
+        }
         String result = mCalculator.calculateResult(mCase, mFirstValue, mSecondValue);
         mResult.setText(result);
         if (result.equals("")) {
@@ -93,36 +105,49 @@ public class CalculatorActivity extends AppCompatActivity {
         } else {
             mFirstValue = Double.valueOf(result);
         }
+        checkDot(result);
         mSecondValue = 0;
         mClean = true;
+    }
+
+    public void checkDot(String result) {
+        if (result.contains(".")) {
+            mDotButton.setEnabled(false);
+        } else {
+            mDotButton.setEnabled(true);
+        }
     }
 
     @OnClick(R.id.activity_calculator_divide)
     public void divide(View view) {
         mFirstValue = Double.valueOf(mResult.getText().toString());
         mCase = DIVIDE;
-        mClean = true;
+        mAfterOperatorClean = true;
+        mDotButton.setEnabled(true);
     }
 
     @OnClick(R.id.activity_calculator_plus)
     public void plus(View view) {
         mFirstValue = Double.valueOf(mResult.getText().toString());
         mCase = PLUS;
-        mClean = true;
+        mAfterOperatorClean = true;
+        mDotButton.setEnabled(true);
     }
 
     @OnClick(R.id.activity_calculator_diminish)
     public void diminish() {
         mFirstValue = Double.valueOf(mResult.getText().toString());
         mCase = DIMINISH;
-        mClean = true;
+        mAfterOperatorClean = true;
+        mDotButton.setEnabled(true);
     }
 
     @OnClick(R.id.activity_calculator_multiply)
     public void multiply() {
         mFirstValue = Double.valueOf(mResult.getText().toString());
         mCase = MULTIPLY;
-        mClean = true;
+        mAfterOperatorClean = true;
+        mDotButton.setEnabled(true);
     }
 
     @OnClick(R.id.activity_calculator_one)
@@ -190,16 +215,22 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @OnClick(R.id.activity_calculator_zero)
     public void zeroClick(View view) {
-        cleanZero();
-        cleanScreen();
+        if (mAfterOperatorClean) {
+            afterOperation();
+        } else {
+            checkDotForCleaningScreen();
+        }
         addString("0");
     }
 
     @OnClick(R.id.activity_calculator_dot)
     public void dotClick() {
-        cleanZero();
-        cleanScreen();
+        if (mAfterOperatorClean) {
+            afterOperation();
+            addString("0");
+        }
         addString(".");
+        mDotButton.setEnabled(false);
     }
 
     public void addString(String string) {
@@ -210,18 +241,34 @@ public class CalculatorActivity extends AppCompatActivity {
 
     }
 
+    public void checkDotForCleaningScreen() {
+        if (!mResult.getText().toString().contains(".")) {
+            mResult.setText("");
+        }
+    }
+
     public void cleanZero() {
-        if (mResult.getText().toString().equals("0")){
+        if (mResult.getText().toString().equals("0") && mResult.getText().length() == 1) {
             mClean = true;
+        } else if (mResult.getText().toString().contains(".")) {
+            mClean = false;
         }
     }
 
 
     public void cleanScreen() {
-        if (mClean) {
+        if (mAfterOperatorClean) {
+            afterOperation();
+        } else if (mClean) {
             mResult.setText("");
             mClean = false;
         }
+    }
+
+    public void afterOperation() {
+        mResult.setText("");
+        mClean = false;
+        mAfterOperatorClean = false;
     }
 
 }
