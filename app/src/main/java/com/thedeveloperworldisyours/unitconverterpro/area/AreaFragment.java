@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.unitconverterpro.fragment;
+package com.thedeveloperworldisyours.unitconverterpro.area;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

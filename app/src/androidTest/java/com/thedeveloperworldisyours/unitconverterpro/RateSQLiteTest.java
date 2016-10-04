@@ -36,6 +36,11 @@ public class RateSQLiteTest {
         mRateDataSource.close();
     }
 
+    @After
+    public void finish() {
+        mRateDataSource.close();
+    }
+
     @Test
     public void testPreConditions() {
         assertNotNull(mRateDataSource);

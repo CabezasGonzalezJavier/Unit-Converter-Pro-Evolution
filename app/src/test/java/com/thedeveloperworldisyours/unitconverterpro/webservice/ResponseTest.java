@@ -49,8 +49,7 @@ public class ResponseTest {
 
     @Test
     public void errorResponseTest() {
-        mMockResponseHandler.sendResponseFail(mResponseError);
-
+        mMockResponseListener.onError(mResponseError);
         assertNotNull(mResponseError);
         assertEquals(mResponseError, "Error");
         verify(mMockResponseHandler).sendResponseFail(mResponseError);

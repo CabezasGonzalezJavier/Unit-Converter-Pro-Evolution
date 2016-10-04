@@ -3,7 +3,6 @@ package com.thedeveloperworldisyours.unitconverterpro;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -32,7 +31,7 @@ import com.thedeveloperworldisyours.unitconverterpro.calculator.CalculatorActivi
 import com.thedeveloperworldisyours.unitconverterpro.common.utils.PreferencesManager;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyFragment;
 import com.thedeveloperworldisyours.unitconverterpro.currency.CurrencyInteractionListener;
-import com.thedeveloperworldisyours.unitconverterpro.fragment.AreaFragment;
+import com.thedeveloperworldisyours.unitconverterpro.area.AreaFragment;
 
 public class MainActivity extends AppCompatActivity implements CurrencyInteractionListener {
 
