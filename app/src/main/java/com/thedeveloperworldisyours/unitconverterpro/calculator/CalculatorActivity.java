@@ -29,12 +29,7 @@ public class CalculatorActivity extends AppCompatActivity {
     private boolean mAfterOperatorClean = false;
     private boolean mClean = true;
 
-    private int mCase = 0;
-
-    private static final int PLUS = 1;
-    private final static int DIMINISH = 2;
-    private final static int DIVIDE = 3;
-    private final static int MULTIPLY = 4;
+    private CalculatorImpl.Operator mCase;
 
     private final static String RESULT = "result";
     private final static String FIRST_VALUE = "first";
@@ -121,15 +116,15 @@ public class CalculatorActivity extends AppCompatActivity {
     @OnClick(R.id.activity_calculator_divide)
     public void divide(View view) {
         mFirstValue = Double.valueOf(mResult.getText().toString());
-        mCase = DIVIDE;
+        mCase = CalculatorImpl.Operator.DIV;
         mAfterOperatorClean = true;
         mDotButton.setEnabled(true);
     }
 
-    @OnClick(R.id.activity_calculator_plus)
-    public void plus(View view) {
+    @OnClick(R.id.activity_calculator_add)
+    public void add(View view) {
         mFirstValue = Double.valueOf(mResult.getText().toString());
-        mCase = PLUS;
+        mCase = CalculatorImpl.Operator.ADD;
         mAfterOperatorClean = true;
         mDotButton.setEnabled(true);
     }
@@ -137,7 +132,7 @@ public class CalculatorActivity extends AppCompatActivity {
     @OnClick(R.id.activity_calculator_diminish)
     public void diminish() {
         mFirstValue = Double.valueOf(mResult.getText().toString());
-        mCase = DIMINISH;
+        mCase = CalculatorImpl.Operator.SUB;
         mAfterOperatorClean = true;
         mDotButton.setEnabled(true);
     }
@@ -145,7 +140,7 @@ public class CalculatorActivity extends AppCompatActivity {
     @OnClick(R.id.activity_calculator_multiply)
     public void multiply() {
         mFirstValue = Double.valueOf(mResult.getText().toString());
-        mCase = MULTIPLY;
+        mCase = CalculatorImpl.Operator.MUL;
         mAfterOperatorClean = true;
         mDotButton.setEnabled(true);
     }

@@ -5,23 +5,50 @@ package com.thedeveloperworldisyours.unitconverterpro.calculator;
  */
 public class CalculatorImpl implements Calculator{
 
-    private static final int ADDITION = 1;
-    private final static int DIMINISH = 2;
-    private final static int DIVIDE = 3;
-    private final static int MULTIPLY = 4;
+    public enum Operator {ADD, SUB, DIV, MUL}
 
-    public String calculateResult(int operator, double mFirstValue, double mSecondValue) {
+
+    public String calculateResult(Operator operator, double mFirstValue, double mSecondValue) {
         switch (operator) {
-            case DIVIDE:
-                return String.valueOf(mFirstValue / mSecondValue);
-            case ADDITION:
-                return String.valueOf(mFirstValue + mSecondValue);
-            case MULTIPLY:
-                return String.valueOf(mFirstValue * mSecondValue);
-            case DIMINISH:
-                return String.valueOf(mFirstValue - mSecondValue);
+            case DIV:
+                return String.valueOf(div(mFirstValue, mSecondValue));
+            case ADD:
+                return String.valueOf(add(mFirstValue, mSecondValue));
+            case MUL:
+                return String.valueOf(mul(mFirstValue, mSecondValue));
+            case SUB:
+                return String.valueOf(sub(mFirstValue, mSecondValue));
             default:
                 return String.valueOf("");
         }
+    }
+
+    /**
+     * Addition operation
+     */
+    public double add(double firstOperand, double secondOperand) {
+        return firstOperand + secondOperand;
+    }
+
+    /**
+     * Substract operation
+     */
+    public double sub(double firstOperand, double secondOperand) {
+        return firstOperand - secondOperand;
+    }
+
+    /**
+     * Divide operation
+     */
+    public double div(double firstOperand, double secondOperand) {
+//        checkArgument(secondOperand != 0, "secondOperand must be != 0, you cannot divide by zero");
+        return firstOperand / secondOperand;
+    }
+
+    /**
+     * Multiply operation
+     */
+    public double mul(double firstOperand, double secondOperand) {
+        return firstOperand * secondOperand;
     }
 }

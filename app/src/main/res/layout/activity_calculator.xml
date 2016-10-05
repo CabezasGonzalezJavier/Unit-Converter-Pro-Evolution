@@ -238,7 +238,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_below="@+id/activity_calculator_diminish"
-        android:layout_toLeftOf="@+id/activity_calculator_plus"
+        android:layout_toLeftOf="@+id/activity_calculator_add"
         android:background="@drawable/calculator_equal_button"
         android:text="@string/activity_calculator_equals"
         android:textSize="@dimen/activity_calculator_size_text_operator"
@@ -246,7 +246,7 @@
         app:layout_widthPercent="23%" />
 
     <com.thedeveloperworldisyours.unitconverterpro.common.view.BlackplotanButton
-        android:id="@+id/activity_calculator_plus"
+        android:id="@+id/activity_calculator_add"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentRight="true"

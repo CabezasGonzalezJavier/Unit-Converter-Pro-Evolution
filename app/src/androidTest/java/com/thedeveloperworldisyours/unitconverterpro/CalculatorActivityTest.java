@@ -60,7 +60,7 @@ public class CalculatorActivityTest {
     public void testAddition() {
         onView(withId(R.id.activity_calculator_two)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("2")));
-        onView(withId(R.id.activity_calculator_plus)).perform(ViewActions.click());
+        onView(withId(R.id.activity_calculator_add)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("2")));
         SystemClock.sleep(1500);
         onView(withId(R.id.activity_calculator_three)).perform(ViewActions.click());
@@ -90,7 +90,7 @@ public class CalculatorActivityTest {
     public void testOnClickTwiceOperator() {
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("0")));
         onView(withId(R.id.activity_calculator_divide)).perform(ViewActions.click());
-        onView(withId(R.id.activity_calculator_plus)).perform(ViewActions.click());
+        onView(withId(R.id.activity_calculator_add)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("0")));
         SystemClock.sleep(1500);
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("0")));
@@ -100,7 +100,7 @@ public class CalculatorActivityTest {
     @Test
     public void testOnClickPlusOperatorDivideOperatorAndInsertNumber() {
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("0")));
-        onView(withId(R.id.activity_calculator_plus)).perform(ViewActions.click());
+        onView(withId(R.id.activity_calculator_add)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_divide)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("0")));
         SystemClock.sleep(1500);
@@ -137,7 +137,7 @@ public class CalculatorActivityTest {
         onView(withId(R.id.activity_calculator_equals)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("3.0")));
 //        Addition
-        onView(withId(R.id.activity_calculator_plus)).perform(ViewActions.click());
+        onView(withId(R.id.activity_calculator_add)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_three)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_equals)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("6.0")));
@@ -171,7 +171,7 @@ public class CalculatorActivityTest {
 //      Addition
         onView(withId(R.id.activity_calculator_two)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("2")));
-        onView(withId(R.id.activity_calculator_plus)).perform(ViewActions.click());
+        onView(withId(R.id.activity_calculator_add)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("2")));
         onView(withId(R.id.activity_calculator_three)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("3")));
@@ -216,7 +216,7 @@ public class CalculatorActivityTest {
 //      Addition
         onView(withId(R.id.activity_calculator_two)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("2")));
-        onView(withId(R.id.activity_calculator_plus)).perform(ViewActions.click());
+        onView(withId(R.id.activity_calculator_add)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("2")));
         onView(withId(R.id.activity_calculator_three)).perform(ViewActions.click());
         onView(withId(R.id.activity_calculator_result)).check(matches(withText("3")));

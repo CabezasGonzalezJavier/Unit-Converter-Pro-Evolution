@@ -9,8 +9,6 @@ import com.thedeveloperworldisyours.unitconverterpro.webservice.ResponseListener
  */
 public class ClientHTTPImpl implements ClientHTTP{
 
-
-
     ResponseListener mResponseListener;
 
     ClientAsyncTask mClientAsyncTask;
@@ -21,7 +19,6 @@ public class ClientHTTPImpl implements ClientHTTP{
 
     @Override
     public void get(String url) {
-
 
         mClientAsyncTask = new ClientAsyncTaskImpl();
         mClientAsyncTask.executeAsync(mResponseListener, url, "GET");
