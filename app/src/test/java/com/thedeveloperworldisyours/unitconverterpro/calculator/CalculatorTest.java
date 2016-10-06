@@ -9,18 +9,10 @@ import org.junit.Test;
 public class CalculatorTest {
 
     Calculator mCalculator;
-    int mAddition;
-    int mDiminish;
-    int mDivide;
-    int mMultiply;
 
     @Before
     public void setUp() {
         mCalculator = new CalculatorImpl();
-        mAddition = 1;
-        mDiminish = 2;
-        mDivide = 3;
-        mMultiply = 4;
     }
 
     // can it add the positive numbers 1 and 2?
