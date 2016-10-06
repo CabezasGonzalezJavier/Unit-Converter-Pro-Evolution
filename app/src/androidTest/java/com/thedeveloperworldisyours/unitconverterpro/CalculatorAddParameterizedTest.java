@@ -23,6 +23,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(Parameterized.class)
 @SmallTest
 public class CalculatorAddParameterizedTest {
+
     /**
      * @return {@link Iterable} that contains the values that should be passed to the constructor.
      * In this example we are going to use three parameters: operand one, operand two and the
