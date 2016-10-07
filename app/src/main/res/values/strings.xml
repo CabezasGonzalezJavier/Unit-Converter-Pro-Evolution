@@ -64,5 +64,15 @@
     <string name="activity_calculator_eight">8</string>
     <string name="activity_calculator_seven">7</string>
 
+    <string name="fragment_area_square_kilometre">Square Kilometre</string>
+    <string name="fragment_area_hectare">Hectare(ha)</string>
+    <string name="fragment_area_squere_metre">Square Metre(m²)</string>
+    <string name="fragment_area_square_centimetre">Square Centimetre (cm²)</string>
+    <string name="fragment_area_square_millimetre">Square Millimetre (mm²)</string>
+    <string name="fragment_area_square_mile">Square Mile</string>
+    <string name="fragment_area_acre">Acre</string>
+    <string name="fragment_area_square_yard">Square Yard (yd²)</string>
+    <string name="fragment_area_square_foot">Square Food (ft²)</string>
+    <string name="fragment_area_square_inch">Square Inch (in²)</string>
 
 </resources>

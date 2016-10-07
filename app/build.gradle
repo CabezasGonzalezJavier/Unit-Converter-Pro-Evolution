@@ -63,12 +63,14 @@ dependencies {
     compile "com.android.support:design:${APP_COMPAT_VERSION}"
     compile "com.android.support:support-v4:${APP_COMPAT_VERSION}"
     compile "com.android.support:support-annotations:${APP_COMPAT_VERSION}"
+    compile "com.android.support:recyclerview-v7:${APP_COMPAT_VERSION}"
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.mikepenz:google-material-typeface:2.2.0.3.original@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
     compile 'com.mikepenz:community-material-typeface:1.5.54.2@aar'
     compile 'com.mikepenz:ionicons-typeface:2.0.1.2@aar'
     compile 'com.mikepenz:foundation-icons-typeface:3.0.0.2@aar'
+
 }
 
 configurations.all {
