@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="?listPreferredItemHeight"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fragment_currency_pound_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_edit_text"
+        android:layout_toLeftOf="@+id/drag_swipe_list_item_handle"
+        android:theme="@style/CurrencyTextInPutLayout"
+        android:visibility="visible">
+
+        <com.thedeveloperworldisyours.unitconverterpro.common.view.EditText_Lota_Regular
+            android:id="@+id/drag_swipe_list_item_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_currency_line_edit_text"
+            android:hint="@string/currency_pound_hint"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/drag_swipe_list_item_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical|right"
+        android:scaleType="center"
+        android:src="@mipmap/arrow_double_up" />
+</RelativeLayout>

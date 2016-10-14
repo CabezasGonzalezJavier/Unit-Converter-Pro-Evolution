@@ -6,7 +6,7 @@
     tools:context="com.thedeveloperworldisyours.unitconverterpro.area.AreaFragment">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/fragment_area_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <!-- Define your empty view in layout -->

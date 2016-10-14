@@ -48,7 +48,7 @@
     <string name="activity_calculator_equals">=</string>
     <string name="activity_calculator_zero">0</string>
     <string name="activity_calculator_dot">.</string>
-    
+
     <string name="activity_calculator_diminish">-</string>
     <string name="activity_calculator_three">3</string>
     <string name="activity_calculator_two">2</string>
@@ -74,5 +74,18 @@
     <string name="fragment_area_square_yard">Square Yard (yd²)</string>
     <string name="fragment_area_square_foot">Square Food (ft²)</string>
     <string name="fragment_area_square_inch">Square Inch (in²)</string>
+
+    <array name="dummy_items">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eight</item>
+        <item>Nine</item>
+        <item>Ten</item>
+    </array>
 
 </resources>
