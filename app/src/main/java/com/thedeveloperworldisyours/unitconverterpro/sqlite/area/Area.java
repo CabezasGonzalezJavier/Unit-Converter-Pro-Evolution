@@ -7,8 +7,8 @@ package com.thedeveloperworldisyours.unitconverterpro.sqlite.area;
 public class Area {
     private long id;
     private String name;
-    private Double value;
-    private long position;
+    private long value;
+    private int position;
 
     public long getId() {
         return id;
@@ -26,19 +26,19 @@ public class Area {
         this.name = name;
     }
 
-    public Double getValue() {
+    public long getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(long value) {
         this.value = value;
     }
 
-    public long getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(long position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 }

@@ -12,13 +12,17 @@ import android.view.ViewGroup;
 import com.thedeveloperworldisyours.unitconverterpro.R;
 import com.thedeveloperworldisyours.unitconverterpro.common.dragandswipehelper.OnStartDragListener;
 import com.thedeveloperworldisyours.unitconverterpro.common.dragandswipehelper.SimpleItemTouchHelperCallback;
+import com.thedeveloperworldisyours.unitconverterpro.sqlite.area.Area;
+
+import java.util.List;
 
 /**
  * create an instance of this fragment.
  */
-public class AreaFragment extends Fragment implements OnStartDragListener {
+public class AreaFragment extends Fragment implements OnStartDragListener, AreaView {
 
     private ItemTouchHelper mItemTouchHelper;
+    private RecyclerView mRecyclerView;
 
     public AreaFragment() {
         // Required empty public constructor
@@ -42,17 +46,9 @@ public class AreaFragment extends Fragment implements OnStartDragListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_area, null);
-
-        DragAndSwipeRecyclerListAdapter adapter = new DragAndSwipeRecyclerListAdapter(getActivity(), this);
-
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_area_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(recyclerView);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_area_recycler_view);
+        AreaPresenter areaPresenter = new AreaPresenterImpl();
+        areaPresenter.refresh(getActivity(), this);
         return view;
     }
 
@@ -66,4 +62,22 @@ public class AreaFragment extends Fragment implements OnStartDragListener {
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
     }
+
+    @Override
+    public void showInfo(List<Area> list) {
+        buildingList(list);
+    }
+
+    public void buildingList(List<Area> list) {
+        AreaAdapter adapter = new AreaAdapter(getActivity(), this, list);
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
 }

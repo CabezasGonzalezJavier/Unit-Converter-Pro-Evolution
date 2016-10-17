@@ -34,7 +34,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_AREA = "create table "
             + TABLE_AREA + "( " + COLUMN_AREA_ID
             + " integer primary key autoincrement, " + COLUMN_AREA_NAME
-            + " text not null," + COLUMN_AREA_POSITION + " integer, "
+            + " text not null, " + COLUMN_AREA_POSITION + " integer, "
             + COLUMN_AREA_VALUE + " real);";
 
     public MySQLiteHelper(Context context) {

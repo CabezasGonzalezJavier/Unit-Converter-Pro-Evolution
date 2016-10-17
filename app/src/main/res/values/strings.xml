@@ -19,6 +19,7 @@
     <string name="fragment_fuel_title">Fuel</string>
     <string name="fragment_volume_title">Volume</string>
 
+    <string name="fragment_area_no_data">No data</string>
 
     <string name="currency_euro">EUR</string>
     <string name="currency_pound">GBP</string>

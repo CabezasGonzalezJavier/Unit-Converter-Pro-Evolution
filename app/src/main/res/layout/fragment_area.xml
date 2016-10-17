@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     tools:context="com.thedeveloperworldisyours.unitconverterpro.area.AreaFragment">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_area_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <!-- Define your empty view in layout -->
         <TextView
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:text="No data"/>
+            android:text="@string/fragment_area_no_data"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_area_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <!-- Define your empty view in layout -->
 
 </RelativeLayout>

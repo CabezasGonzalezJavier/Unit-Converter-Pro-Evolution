@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.MySQLiteHelper;
-import com.thedeveloperworldisyours.unitconverterpro.sqlite.currency.Rate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +32,14 @@ public class AreaDataSource {
         mDbHelper.close();
     }
 
-    public Area createArea(String name, Double value, Long position) {
+    public Area createArea(String name, Long value, int position) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_AREA_NAME, name);
         values.put(MySQLiteHelper.COLUMN_AREA_VALUE, value);
         values.put(MySQLiteHelper.COLUMN_AREA_POSITION, position);
 
         long insertId = mDatabase.insert(MySQLiteHelper.TABLE_AREA, null, values);
-        Cursor cursor = mDatabase.query(MySQLiteHelper.TABLE_AREA, mAllColumns, MySQLiteHelper.COLUMN_AREA_ID + "=" + insertId, null,
+        Cursor cursor = mDatabase.query(MySQLiteHelper.TABLE_AREA, mAllColumns, MySQLiteHelper.COLUMN_AREA_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
         Area newComment = cursorToArea(cursor);
@@ -76,8 +75,8 @@ public class AreaDataSource {
         Area area = new Area();
         area.setId(cursor.getLong(0));
         area.setName(cursor.getString(1));
-        area.setValue(cursor.getDouble(2));
-        area.setPosition(cursor.getLong(3));
+        area.setValue(cursor.getLong(2));
+        area.setPosition(cursor.getInt(3));
         return area;
     }
 
