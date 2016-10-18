@@ -56,6 +56,25 @@ public class AreaDataSource {
         mDatabase.delete(MySQLiteHelper.TABLE_AREA, MySQLiteHelper.COLUMN_AREA_ID + " = "+ id, null);
     }
 
+    public void changePosition(Area area, int position){//long id, int position){
+
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_AREA_NAME, area.getName());
+        values.put(MySQLiteHelper.COLUMN_AREA_VALUE, area.getValue());
+        values.put(MySQLiteHelper.COLUMN_AREA_POSITION, position);
+        mDatabase.update(MySQLiteHelper.TABLE_AREA, values, MySQLiteHelper.COLUMN_AREA_ID + " = " + area.getId(), null);
+
+    }
+
+    public Area getAreaWhenPosition(int position) {
+        Cursor cursor = mDatabase.query(MySQLiteHelper.TABLE_AREA, mAllColumns, MySQLiteHelper.COLUMN_AREA_POSITION + " = " + position, null,
+                null, null, null);
+        cursor.moveToFirst();
+        Area newComment = cursorToArea(cursor);
+        cursor.close();
+        return newComment;
+    }
+
     public List<Area> getAllAreas() {
         List<Area> areas = new ArrayList<>();
         Cursor cursor = mDatabase.query(MySQLiteHelper.TABLE_AREA,

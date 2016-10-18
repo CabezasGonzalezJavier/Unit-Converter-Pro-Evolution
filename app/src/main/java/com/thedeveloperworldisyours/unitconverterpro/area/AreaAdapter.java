@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,10 +16,10 @@ import com.thedeveloperworldisyours.unitconverterpro.common.dragandswipehelper.I
 import com.thedeveloperworldisyours.unitconverterpro.common.dragandswipehelper.ItemTouchHelperViewHolder;
 import com.thedeveloperworldisyours.unitconverterpro.common.dragandswipehelper.OnStartDragListener;
 import com.thedeveloperworldisyours.unitconverterpro.sqlite.area.Area;
+import com.thedeveloperworldisyours.unitconverterpro.sqlite.area.AreaDataSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,14 +31,15 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ItemViewHolder
 
     private static final String TAG = "Drag";
 
-    private final HashMap<Integer, Integer> positionGeneral = new HashMap<>();
     private final List<Area> mItems = new ArrayList<>();
 
     private final OnStartDragListener mDragStartListener;
+    AreaDataSource mAreaDataSource;
 
     public AreaAdapter(Context context, OnStartDragListener dragStartListener, List<Area> list) {
         mDragStartListener = dragStartListener;
         mItems.addAll(list);
+        mAreaDataSource = new AreaDataSource(context);
     }
 
     @Override
@@ -73,12 +73,19 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ItemViewHolder
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        positionGeneral.put(1, toPosition);
-        positionGeneral.containsValue(fromPosition);
-        Log.d(TAG, String.valueOf(fromPosition) + "::" + String.valueOf(toPosition));
+        mAreaDataSource.open();
         Collections.swap(mItems, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+        sortList();
+        List<Area> areasDelete = mAreaDataSource.getAllAreas();
+        mAreaDataSource.close();
         return true;
+    }
+
+    public void sortList() {
+        for (int i=0; i< mItems.size(); i++){
+            mAreaDataSource.changePosition(mItems.get(i), i);//mItems.get(i).getId(),mItems.get(i).getPosition());
+        }
     }
 
     @Override
